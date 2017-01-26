@@ -22,6 +22,7 @@ public class JPongSick extends Game {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 
+		Config.initialize();
 		this.setScreen(new MainMenuScreen(this));
 	}
 

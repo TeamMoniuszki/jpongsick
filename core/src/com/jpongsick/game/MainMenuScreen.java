@@ -28,25 +28,10 @@ public class MainMenuScreen implements Screen {
         camera.setToOrtho(false, Config.width, Config.height);
 
 
-        Skin skin = new Skin();
 
-        Pixmap pixmap = new Pixmap(100, 100, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.GREEN);
-        pixmap.fill();
 
-        skin.add("white", new Texture(pixmap));
-        skin.add("default", game.getFont());
-
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
-        textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
-        textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
-        textButtonStyle.font = game.getFont();
-
-        skin.add("default", textButtonStyle);
-        buttonStart = new TextButton("CHUJU", textButtonStyle);
-        buttonStart.setPosition(200, 200);
-
+        buttonStart = new TextButton("START GAME", Config.textButtonStyle);
+        buttonStart.setPosition((Gdx.app.getGraphics().getWidth() - buttonStart.getWidth())/2, (Gdx.app.getGraphics().getHeight() -buttonStart.getHeight())/2);
         stage.addActor(buttonStart);
     }
 
@@ -59,8 +44,8 @@ public class MainMenuScreen implements Screen {
         game.getBatch().setProjectionMatrix(camera.combined);
 
         game.getBatch().begin();
-        game.getFont().draw(game.getBatch(), "Welcome to Drop!!! ", 100, 150);
-        game.getFont().draw(game.getBatch(), "Tap anywhere to begin!", 100, 100);
+//        game.getFont().draw(game.getBatch(), "Welcome to Drop!!! ", 100, 150);
+//        game.getFont().draw(game.getBatch(), "Tap anywhere to begin!", 100, 100);
         game.getBatch().end();
 
 //        if (Gdx.input.isTouched()) {
