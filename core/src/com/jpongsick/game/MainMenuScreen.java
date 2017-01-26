@@ -2,8 +2,13 @@ package com.jpongsick.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 /**
  * Created by CalychasLaptop on 26.01.2017.
@@ -11,12 +16,38 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 public class MainMenuScreen implements Screen {
     private final JPongSick game;
     private OrthographicCamera camera;
+    private Button buttonStart;
+    private Stage stage;
 
     public MainMenuScreen(final JPongSick game) {
         this.game = game;
+        this.stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 600);
+        camera.setToOrtho(false, Config.width, Config.height);
+
+
+        Skin skin = new Skin();
+
+        Pixmap pixmap = new Pixmap(100, 100, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.GREEN);
+        pixmap.fill();
+
+        skin.add("white", new Texture(pixmap));
+        skin.add("default", game.getFont());
+
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
+        textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
+        textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
+        textButtonStyle.font = game.getFont();
+
+        skin.add("default", textButtonStyle);
+        buttonStart = new TextButton("CHUJU", textButtonStyle);
+        buttonStart.setPosition(200, 200);
+
+        stage.addActor(buttonStart);
     }
 
     @Override
@@ -32,10 +63,13 @@ public class MainMenuScreen implements Screen {
         game.getFont().draw(game.getBatch(), "Tap anywhere to begin!", 100, 100);
         game.getBatch().end();
 
-        if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen(game));
-            dispose();
-        }
+//        if (Gdx.input.isTouched()) {
+//            game.setScreen(new GameScreen(game));
+//            dispose();
+//        }
+
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        stage.draw();
     }
 
     @Override
