@@ -1,1 +1,1 @@
-Tutaj robimy gre
+Tutaj robimy gre dobro
