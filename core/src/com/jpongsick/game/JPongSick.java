@@ -16,6 +16,7 @@ public class JPongSick extends Game {
 	private State state;
 
 
+
 	public State getState() {
 		return state;
 	}

@@ -35,11 +35,10 @@ public abstract class Physics {
             ball.speed.y *= -1;
         }
 
-        //TODO
-//        if(ball.x <= 0){
-//            ball.setCenter(Gdx.app.getGraphics().getWidth()/2, Gdx.app.getGraphics().getHeight()/2);
-//
-//        }
+
+        if(ball.x <= 0 || (ball.x + ball.radius*2) >= Gdx.app.getGraphics().getWidth()) {
+            ball.restart();
+        }
     }
 
     private static void platformBallCollisions(Platform platform) {
