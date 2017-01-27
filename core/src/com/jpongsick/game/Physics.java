@@ -2,10 +2,10 @@ package com.jpongsick.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.jpongsick.game.Entities.Ball;
+import com.jpongsick.game.Entities.Platform;
 
-/**
- * Created by CalychasLaptop on 27.01.2017.
- */
+
 public abstract class Physics {
 
     private static Ball ball;

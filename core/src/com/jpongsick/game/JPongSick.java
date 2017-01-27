@@ -2,9 +2,11 @@ package com.jpongsick.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.jpongsick.game.Screens.GameScreen;
+import com.jpongsick.game.Util.State;
+import com.jpongsick.game.Screens.MainMenuScreen;
 
 public class JPongSick extends Game {
 	private SpriteBatch batch;
@@ -38,13 +40,11 @@ public class JPongSick extends Game {
 		return this.stage;
 	}
 
-
-
-
 	@Override
 	public void create () {
 		Config.initialize();
 		Input.initialize(this);
+
 		this.batch = new SpriteBatch();
 		this.stage = new Stage();
 		this.state = State.MENU;
@@ -58,9 +58,9 @@ public class JPongSick extends Game {
 	@Override
 	public void render () {
 		super.render();
-
 		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		stage.draw();
+        Input.update();
 	}
 	
 	@Override

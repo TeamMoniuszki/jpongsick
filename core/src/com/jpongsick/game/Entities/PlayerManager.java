@@ -1,13 +1,9 @@
-package com.jpongsick.game;
-
+package com.jpongsick.game.Entities;
 
 import com.badlogic.gdx.utils.Array;
 
-/**
- * Created by Szymon on 22.01.2017.
- */
-public abstract class PlayerManager {
 
+public abstract class PlayerManager {
     private static Array<Player> players;
     private static boolean isInitialized = false;
 
@@ -18,6 +14,7 @@ public abstract class PlayerManager {
     }
 
     public static Player createPlayer(Platform platform, Score score, String nickname){
+        if (!isInitialized) return null;
         Player player = Player.createPlayer(platform, score, nickname);
         players.add(player);
         return player;

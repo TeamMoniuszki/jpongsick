@@ -1,16 +1,12 @@
-package com.jpongsick.game;
+package com.jpongsick.game.Entities;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-/**
- * Created by Igor on 16.01.2017.
- */
+
 public class Platform extends Rectangle{
     public static int speed = 400;
     public Pixmap pixmap;

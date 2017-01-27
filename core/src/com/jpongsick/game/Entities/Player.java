@@ -1,8 +1,6 @@
-package com.jpongsick.game;
+package com.jpongsick.game.Entities;
 
-/**
- * Created by Szymon on 22.01.2017.
- */
+
 public class Player {
     private Platform platform;
     private Score score;

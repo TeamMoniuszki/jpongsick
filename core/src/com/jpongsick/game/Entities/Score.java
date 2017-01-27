@@ -1,8 +1,5 @@
-package com.jpongsick.game;
+package com.jpongsick.game.Entities;
 
-/**
- * Created by Szymon on 17.01.2017.
- */
 public class Score {
     private int points;
 

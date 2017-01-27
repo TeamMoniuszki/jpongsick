@@ -3,39 +3,37 @@ package com.jpongsick.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
-/**
- * Created by CalychasLaptop on 27.01.2017.
- */
+
 public abstract class Input {
+    private static boolean isInitialized = false;
     public static int leftP;
     public static int rightP;
     private static JPongSick game;
 
     public static void initialize(JPongSick g){
+        if (isInitialized) return;
         leftP = 0;
         rightP = 0;
         game = g;
+
+        isInitialized = true;
     }
     public static void update(){
-        if (game.getState() == State.PLAYING) {
-            if(Gdx.input.isKeyPressed(Keys.UP)){
-                rightP = 1;
-            }
-            else if(Gdx.input.isKeyPressed(Keys.DOWN)){
-                rightP = -1;
-            }
-            else{
-                rightP = 0;
-            }
+        if (!isInitialized) return;
 
-            if(Gdx.input.isKeyPressed(Keys.W)){
-                leftP = 1;
+        switch (game.getState()) {
+            case MENU: {
+
+                break;
             }
-            else if(Gdx.input.isKeyPressed(Keys.S)){
-                leftP = -1;
+            case PLAYING: {
+                rightP = Gdx.input.isKeyPressed(Keys.UP) ? 1 : Gdx.input.isKeyPressed(Keys.DOWN) ? -1 : 0;
+                leftP = Gdx.input.isKeyPressed(Keys.W) ? 1 : Gdx.input.isKeyPressed(Keys.S) ? -1 : 0;
+                break;
             }
-            else{
-                leftP = 0;
+            case PAUSE: {
+
+                break;
             }
         }
     }

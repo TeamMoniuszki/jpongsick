@@ -1,5 +1,4 @@
-package com.jpongsick.game;
-
+package com.jpongsick.game.Entities;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -7,9 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
-/**
- * Created by Igor on 16.01.2017.
- */
+
 public class Ball extends Circle {
     public static int len = 700;
     public Vector2 speed;
