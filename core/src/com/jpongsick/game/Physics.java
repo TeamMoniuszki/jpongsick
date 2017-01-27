@@ -26,6 +26,7 @@ public abstract class Physics {
     }
 
     private static void ballWallCollisions() {
+        //DOWN, UP
         if (ball.getCenterY() - ball.radius <= 0){
             ball.y = 0;
             ball.speed.y *= -1;
@@ -36,7 +37,10 @@ public abstract class Physics {
         }
 
 
-        if(ball.x <= 0 || (ball.x + ball.radius*2) >= Gdx.app.getGraphics().getWidth()) {
+        //LEFT, RIGHT
+        if(ball.x <= 0) {
+            ball.restart();
+        } else if (ball.x + ball.radius*2 >= Gdx.app.getGraphics().getWidth()) {
             ball.restart();
         }
     }

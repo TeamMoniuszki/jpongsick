@@ -10,6 +10,7 @@ import com.jpongsick.game.Entities.*;
 import com.jpongsick.game.JPongSick;
 import com.jpongsick.game.Physics;
 import com.jpongsick.game.Util.State;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 
@@ -31,19 +32,17 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Config.width, Config.height);
 
-        PlayerManager.initialize();
-
         this.ball = new Ball(0, 0, 15);
         this.player1 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Waldek");
         this.player2 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Zdzichu");
+        this.score1 = new Label(player1.getNickname() + ": " + player1.getScore().getPoints(), new LabelStyle(Config.font, Color.WHITE));
+        this.score2 = new Label(player2.getNickname() + ": " + player2.getScore().getPoints(), new LabelStyle(Config.font, Color.WHITE));
 
         this.ball.setCenter(Gdx.app.getGraphics().getWidth() / 2, Gdx.app.getGraphics().getHeight() / 2);
-        this.player1.getPlatform().setCenter(15, Gdx.app.getGraphics().getHeight() / 2);
-        this.player2.getPlatform().setCenter(Gdx.app.getGraphics().getWidth() - 15, Gdx.app.getGraphics().getHeight() / 2);
-        this.score1 = new Label(player1.getNickname() + ": " + player1.getScore().getPoints(), new Label.LabelStyle(Config.font, Color.WHITE));
-        this.score1.setPosition(Gdx.app.getGraphics().getWidth() / 4f, 7*Gdx.app.getGraphics().getHeight() / 8f, Align.center);
-        this.score2 = new Label(player2.getNickname() + ": " + player2.getScore().getPoints(), new Label.LabelStyle(Config.font, Color.WHITE));
-        this.score2.setPosition(3*Gdx.app.getGraphics().getWidth() / 4f, 7*Gdx.app.getGraphics().getHeight() / 8f, Align.center);
+        this.player1.getPlatform().setCenter(25, Gdx.app.getGraphics().getHeight() / 2);
+        this.player2.getPlatform().setCenter(Gdx.app.getGraphics().getWidth() - 25, Gdx.app.getGraphics().getHeight() / 2);
+        this.score1.setPosition(Gdx.app.getGraphics().getWidth() / 4f, 7 * Gdx.app.getGraphics().getHeight() / 8f, Align.center);
+        this.score2.setPosition(0.75f * Gdx.app.getGraphics().getWidth() , 7 * Gdx.app.getGraphics().getHeight() / 8f, Align.center);
         this.score1.setVisible(false);
         this.score2.setVisible(false);
 
@@ -61,8 +60,6 @@ public class GameScreen implements Screen {
         game.getBatch().draw(ball.texture, ball.x, ball.y);
         game.getBatch().draw(player1.getPlatform().texture, player1.getPlatform().x, player1.getPlatform().y);
         game.getBatch().draw(player2.getPlatform().texture, player2.getPlatform().x, player2.getPlatform().y);
-//        Config.font.draw(game.getBatch(), player1.getNickname() + ": " + player1.getScore().getPoints(), Gdx.app.getGraphics().getWidth()/4f, 7*Gdx.app.getGraphics().getHeight()/8f , 100, Align.center, true );
-//        Config.font.draw(game.getBatch(), player2.getNickname() + ": " + player2.getScore().getPoints(), 3*Gdx.app.getGraphics().getWidth()/4f, 7*Gdx.app.getGraphics().getHeight()/8f , 100, Align.center, true );
 
         game.getBatch().end();
     }

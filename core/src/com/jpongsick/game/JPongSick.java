@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.jpongsick.game.Entities.PlayerManager;
 import com.jpongsick.game.Screens.GameScreen;
 import com.jpongsick.game.Util.State;
 import com.jpongsick.game.Screens.MainMenuScreen;
@@ -14,7 +15,6 @@ public class JPongSick extends Game {
 	private MainMenuScreen mainMenuScreen;
 	private GameScreen gameScreen;
 	private State state;
-
 
 
 	public State getState() {
@@ -45,6 +45,7 @@ public class JPongSick extends Game {
 	public void create () {
 		Config.initialize();
 		Input.initialize(this);
+        PlayerManager.initialize();
 
 		this.batch = new SpriteBatch();
 		this.stage = new Stage();

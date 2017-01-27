@@ -39,8 +39,7 @@ public class Ball extends Circle {
         this.y = y - this.radius;
     }
 
-    public void restart(){
-        setCenter(Gdx.app.getGraphics().getWidth()/2, Gdx.app.getGraphics().getHeight()/2);
+    public void randomizeAngle() {
         int temp = MathUtils.random(0, 7);
         int rotation = MathUtils.random(1,4);
         this.speed.setAngle(temp);
@@ -59,7 +58,11 @@ public class Ball extends Circle {
                 this.speed.y *= -1;
                 break;
         }
+    }
 
+    public void restart(){
+        setCenter(Gdx.app.getGraphics().getWidth()/2, Gdx.app.getGraphics().getHeight()/2);
+        this.randomizeAngle();
     }
 
 }

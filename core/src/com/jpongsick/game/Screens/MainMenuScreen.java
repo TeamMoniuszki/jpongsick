@@ -32,8 +32,7 @@ public class MainMenuScreen implements Screen {
 
     public void draw() {
         game.getBatch().begin();
-//        Config.font.draw(game.getBatch(), "Welcome to JPongSick!!! ", buttonStart.getWidth(), 150);
-//        Config.font.draw(game.getBatch(), "Tap anywhere to begin!", 100, 100);
+
         game.getBatch().end();
     }
 
