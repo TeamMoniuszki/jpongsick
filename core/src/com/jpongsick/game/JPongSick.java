@@ -1,39 +1,71 @@
 package com.jpongsick.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class JPongSick extends Game {
 	private SpriteBatch batch;
-	private BitmapFont font;
+	private Stage stage;
+	private MainMenuScreen mainMenuScreen;
+	private GameScreen gameScreen;
+	private State state;
 
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
 
 	public SpriteBatch getBatch() {
 		return this.batch;
 	}
 
-	public BitmapFont getFont() {
-		return this.font;
+	public MainMenuScreen getMainMenuScreen() {
+		return this.mainMenuScreen;
 	}
+
+	public GameScreen getGameScreen() {
+		return this.gameScreen;
+	}
+
+	public Stage getStage() {
+		return this.stage;
+	}
+
+
+
 
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		font = new BitmapFont();
-
 		Config.initialize();
-		this.setScreen(new MainMenuScreen(this));
+		Input.initialize(this);
+		this.batch = new SpriteBatch();
+		this.stage = new Stage();
+		this.state = State.MENU;
+		this.mainMenuScreen = new MainMenuScreen(this, true);
+		this.gameScreen = new GameScreen(this, false);
+
+		Gdx.input.setInputProcessor(stage);
+		this.setScreen(mainMenuScreen);
 	}
 
 	@Override
 	public void render () {
 		super.render();
+
+		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+		stage.draw();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		font.dispose();
+		Config.dispose();
 	}
 }

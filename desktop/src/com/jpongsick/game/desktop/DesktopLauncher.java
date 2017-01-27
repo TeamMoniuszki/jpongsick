@@ -2,6 +2,7 @@ package com.jpongsick.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.jpongsick.game.Config;
 import com.jpongsick.game.JPongSick;
 
 public class DesktopLauncher {

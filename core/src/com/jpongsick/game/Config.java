@@ -21,7 +21,6 @@ public abstract class Config{
     public static BitmapFont font = new BitmapFont();
 
     public static void initialize(){
-
         pixmap.setColor(Color.RED);
         pixmap.fill();
 
@@ -32,8 +31,15 @@ public abstract class Config{
         textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
         textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
         textButtonStyle.font = font;
+
         skin.add("default", textButtonStyle);
 
+    }
+
+    public static void dispose() {
+        pixmap.dispose();
+        skin.dispose();
+        font.dispose();
     }
 
 
