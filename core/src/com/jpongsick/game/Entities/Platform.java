@@ -1,5 +1,6 @@
 package com.jpongsick.game.Entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -37,5 +38,8 @@ public class Platform extends Rectangle{
         return y + height / 2;
     }
 
+    public void restart(){
+        setCenter(this.getCenterX(), Gdx.app.getGraphics().getHeight() / 2);
+    }
 
 }

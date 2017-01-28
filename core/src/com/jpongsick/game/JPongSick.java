@@ -3,7 +3,9 @@ package com.jpongsick.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.particles.batches.BillboardParticleBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jpongsick.game.Entities.PlayerManager;
 import com.jpongsick.game.Screens.GameScreen;
 import com.jpongsick.game.Util.State;
@@ -48,7 +50,7 @@ public class JPongSick extends Game {
         PlayerManager.initialize();
 
 		this.batch = new SpriteBatch();
-		this.stage = new Stage();
+		this.stage = new Stage(/*new StretchViewport(Config.width, Config.height)*/);
 		this.state = State.MENU;
 		this.mainMenuScreen = new MainMenuScreen(this, true);
 		this.gameScreen = new GameScreen(this, false);

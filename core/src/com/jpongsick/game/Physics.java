@@ -2,8 +2,10 @@ package com.jpongsick.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.jpongsick.game.Entities.Ball;
 import com.jpongsick.game.Entities.Platform;
+import com.jpongsick.game.Util.State;
 
 
 public abstract class Physics {
@@ -11,11 +13,13 @@ public abstract class Physics {
     private static Ball ball;
     private static Platform platform1;
     private static Platform platform2;
+    private static JPongSick game;
 
-    public static void initialize(Ball b, Platform p1, Platform p2) {
+    public static void initialize(Ball b, Platform p1, Platform p2, JPongSick g) {
         ball = b;
         platform1 = p1;
         platform2 = p2;
+        game = g;
     }
 
     private static void integrate() {
@@ -39,9 +43,13 @@ public abstract class Physics {
 
         //LEFT, RIGHT
         if(ball.x <= 0) {
-            ball.restart();
+            game.getGameScreen().getPlayer2().getScore().addPoints();
+            game.getGameScreen().getScore2().setText(game.getGameScreen().getPlayer2().getNickname() + ": " + game.getGameScreen().getPlayer2().getScore().getPoints());
+            restart();
         } else if (ball.x + ball.radius*2 >= Gdx.app.getGraphics().getWidth()) {
-            ball.restart();
+            game.getGameScreen().getPlayer1().getScore().addPoints();
+            game.getGameScreen().getScore1().setText(game.getGameScreen().getPlayer1().getNickname() + ": " + game.getGameScreen().getPlayer1().getScore().getPoints());
+            restart();
         }
     }
 
@@ -65,6 +73,12 @@ public abstract class Physics {
         }
     }
 
+    private static void restart(){
+        ball.restart();
+        platform1.restart();
+        platform2.restart();
+        game.getGameScreen().pause();
+    }
 
     private static void checkCollisions() {
         ballWallCollisions();
@@ -78,4 +92,6 @@ public abstract class Physics {
         integrate();
         checkCollisions();
     }
+
+
 }
