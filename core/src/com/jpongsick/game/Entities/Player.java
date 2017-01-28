@@ -1,7 +1,6 @@
 package com.jpongsick.game.Entities;
 
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.jpongsick.game.Config;
 
@@ -18,7 +17,7 @@ public class Player {
         this.score = score;
         this.nickname = nickname;
 
-        this.label = new Label(nickname.toUpperCase() + ": " + score.getPoints(), Config.labelStyle);
+        this.label = new Label(nickname.toUpperCase() + ": " + score.getPoints(), Config.skin);
     }
 
     /*------------------------------GETTERS------------------------------*/

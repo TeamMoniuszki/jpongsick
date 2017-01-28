@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 
 public abstract class Config{
@@ -19,31 +21,57 @@ public abstract class Config{
     public static int maxGoals = 9;
 
     public static Skin skin = new Skin();
-    public static Pixmap pixmap = new Pixmap(150, 50, Pixmap.Format.RGBA8888);
-    public static TextButtonStyle textButtonStyle = new TextButtonStyle();
-    public static BitmapFont font = new BitmapFont();
-    public static Label.LabelStyle labelStyle = new Label.LabelStyle(Config.font, Color.WHITE);
 
     public static void initialize(){
         if (isInitialized) return;
+
+
+        skin.add("default", new BitmapFont());
+
+        Pixmap pixmap = new Pixmap(150, 50, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.RED);
         pixmap.fill();
+        skin.add("red", new Texture(pixmap));
+        pixmap.dispose();
 
+        pixmap = new Pixmap(150, 30, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.fill();
         skin.add("white", new Texture(pixmap));
-        skin.add("default", font);
-        textButtonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
-        textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
-        textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
-        textButtonStyle.font = font;
+        pixmap.dispose();
+
+        pixmap = new Pixmap(2, 25, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.BLACK);
+        pixmap.fill();
+        skin.add("cursor", new Texture(pixmap));
+        pixmap.dispose();
+
+
+        TextButtonStyle textButtonStyle = new TextButtonStyle();
+        textButtonStyle.up = skin.newDrawable("red", Color.DARK_GRAY);
+        textButtonStyle.down = skin.newDrawable("red", Color.DARK_GRAY);
+        textButtonStyle.over = skin.newDrawable("red", Color.LIGHT_GRAY);
+        textButtonStyle.font = skin.getFont("default");
         skin.add("default", textButtonStyle);
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle(skin.getFont("default"), Color.WHITE);
+        skin.add("default", labelStyle);
+
+        TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
+        textFieldStyle.font = skin.getFont("default");
+        textFieldStyle.fontColor = Color.BLACK;
+        textFieldStyle.background = skin.newDrawable("white", Color.LIGHT_GRAY);
+        textFieldStyle.focusedBackground = skin.newDrawable("white");
+        textFieldStyle.cursor = skin.newDrawable("cursor");
+
+        textFieldStyle.selection = skin.newDrawable("white", 0.5f, 0.5f, 0.5f, 0.5f);
+        skin.add("default", textFieldStyle);
 
         isInitialized = true;
     }
 
     public static void dispose() {
-        pixmap.dispose();
         skin.dispose();
-        font.dispose();
     }
 
 

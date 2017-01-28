@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
 import com.jpongsick.game.Config;
 import com.jpongsick.game.FacadeObserver;
@@ -18,6 +19,8 @@ public class MainMenuScreen implements Screen {
     private OrthographicCamera camera;
     private Button buttonStart;
     private boolean isVisible;
+    private TextField nickInput1;
+    private TextField nickInput2;
 
     public MainMenuScreen(final JPongSick game, boolean isVisible) {
         this.game = game;
@@ -26,9 +29,35 @@ public class MainMenuScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Config.width, Config.height);
 
-        buttonStart = new TextButton("START GAME", Config.textButtonStyle);
+        buttonStart = new TextButton("START GAME", Config.skin);
         buttonStart.setPosition(Config.halfWidth, Config.halfHeight, Align.center);
+
+        nickInput1 = new TextField("Player 1", Config.skin);
+        nickInput2 = new TextField("Player 2", Config.skin);
+        nickInput1.setPosition(Config.width/3f, Config.height/3f, Align.center);
+        nickInput2.setPosition(2*Config.width/3f, Config.height/3f, Align.center);
+        nickInput1.setMaxLength(15);
+        nickInput2.setMaxLength(15);
+
         game.getStage().addActor(buttonStart);
+        game.getStage().addActor(nickInput1);
+        game.getStage().addActor(nickInput2);
+    }
+
+    public TextField getNickInput1() {
+        return nickInput1;
+    }
+
+    public void setNickInput1(TextField nickInput1) {
+        this.nickInput1 = nickInput1;
+    }
+
+    public TextField getNickInput2() {
+        return nickInput2;
+    }
+
+    public void setNickInput2(TextField nickInput2) {
+        this.nickInput2 = nickInput2;
     }
 
     public void draw() {
@@ -61,12 +90,16 @@ public class MainMenuScreen implements Screen {
         this.isVisible = true;
         game.setState(State.MENU);
         buttonStart.setVisible(true);
+        nickInput1.setVisible(true);
+        nickInput2.setVisible(true);
     }
 
     @Override
     public void hide() {
         this.isVisible = false;
         buttonStart.setVisible(false);
+        nickInput1.setVisible(false);
+        nickInput2.setVisible(false);
     }
 
     @Override

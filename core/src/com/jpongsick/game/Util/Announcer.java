@@ -17,8 +17,8 @@ public abstract class Announcer {
         if(isInitialized) return;
 
         game = g;
-        message = new Label("", Config.labelStyle);
-        message.setPosition(Config.halfWidth, Config.halfHeight, Align.center);
+        message = new Label("", Config.skin);
+        message.setPosition(Config.halfWidth, 2*Config.height/3f, Align.center);
         message.setVisible(false);
         game.getStage().addActor(message);
         isInitialized = true;

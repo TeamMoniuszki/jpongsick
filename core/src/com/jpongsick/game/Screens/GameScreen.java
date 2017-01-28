@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Rectangle;
 import com.jpongsick.game.Config;
 import com.jpongsick.game.Entities.*;
 import com.jpongsick.game.FacadeObserver;
@@ -104,8 +105,15 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         this.isVisible = true;
+
+        this.player1.setNickname(game.getMainMenuScreen().getNickInput1().getText());
+        this.player1.updateLabel();
         this.player1.getLabel().setVisible(true);
+
+        this.player2.setNickname(game.getMainMenuScreen().getNickInput2().getText());
+        this.player2.updateLabel();
         this.player2.getLabel().setVisible(true);
+
     }
 
     @Override
