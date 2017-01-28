@@ -89,20 +89,20 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if (game.getState() != State.PLAYING) return;
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 
-        Physics.update();
+        if (game.getState() == State.PLAYING) {
+            Physics.update();
+        }
         this.draw();
 
     }
 
     @Override
     public void show() {
-        game.setState(State.PLAYING);
         this.isVisible = true;
         this.player1.getLabel().setVisible(true);
         this.player2.getLabel().setVisible(true);
@@ -116,16 +116,13 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void pause() {
-        game.setState(State.PAUSE);
-        Announcer.setText("GAME PAUSED, PRESS SPACE TO CONTINUE");
-        Announcer.showLabel();
+    public void pause() { // nie wolno uzywac (jak narazie)
+
     }
 
     @Override
-    public void resume() {
-        Announcer.hideLabel();
-        game.setState(State.PLAYING);
+    public void resume() { // nie wolno uzywac (jak narazie)
+
     }
 
     @Override

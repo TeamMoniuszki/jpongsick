@@ -37,7 +37,15 @@ public abstract class Input {
             }
             case PAUSE: {
                 if(Gdx.input.isKeyPressed(Keys.SPACE)){
-                    game.resume();
+                    FacadeObserver.notify(FacadeObserver.Event.RESTART_ROUND);
+                    FacadeObserver.notify(FacadeObserver.Event.RESUME_GAME);
+                }
+                break;
+            }
+            case GAME_OVER: {
+                if(Gdx.input.isKeyPressed(Keys.SPACE)){
+                    FacadeObserver.notify(FacadeObserver.Event.RESTART_ROUND);
+                    FacadeObserver.notify(FacadeObserver.Event.RESUME_GAME);
                 }
                 break;
             }

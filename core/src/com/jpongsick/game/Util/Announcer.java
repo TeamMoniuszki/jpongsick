@@ -36,7 +36,6 @@ public abstract class Announcer {
     }
 
     public static void hideLabel(){
-
         if(!isInitialized) return;
         message.setVisible(false);
     }

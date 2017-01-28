@@ -18,7 +18,7 @@ public class Player {
         this.score = score;
         this.nickname = nickname;
 
-        this.label = new Label(nickname + ": " + score.getPoints(), Config.labelStyle);
+        this.label = new Label(nickname.toUpperCase() + ": " + score.getPoints(), Config.labelStyle);
     }
 
     /*------------------------------GETTERS------------------------------*/
@@ -63,7 +63,11 @@ public class Player {
     }
 
     public void updateLabel() {
-        this.label.setText(nickname + ": " + score.getPoints());
+        this.label.setText(nickname.toUpperCase() + ": " + score.getPoints());
+    }
+
+    public void resetScore() {
+        score.setPoints(0);
     }
 
 }

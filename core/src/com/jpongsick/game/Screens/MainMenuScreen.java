@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.jpongsick.game.Config;
+import com.jpongsick.game.FacadeObserver;
 import com.jpongsick.game.JPongSick;
 import com.jpongsick.game.Util.State;
 
@@ -49,6 +50,7 @@ public class MainMenuScreen implements Screen {
         if (buttonStart.isPressed()) {
             hide();
             game.getGameScreen().show();
+            FacadeObserver.notify(FacadeObserver.Event.RESUME_GAME);
             game.setScreen(game.getGameScreen());
         }
 

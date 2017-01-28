@@ -10,7 +10,6 @@ import com.jpongsick.game.FacadeObserver.Event;
 
 
 public abstract class Physics {
-
     private static Ball ball;
     private static Platform platform1;
     private static Platform platform2;

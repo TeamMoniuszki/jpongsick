@@ -2,9 +2,10 @@ package com.jpongsick.game;
 
 
 import com.badlogic.gdx.utils.Array;
-import com.jpongsick.game.Entities.Ball;
 import com.jpongsick.game.Entities.Player;
 import com.jpongsick.game.Entities.PlayerManager;
+import com.jpongsick.game.Util.Announcer;
+import com.jpongsick.game.Util.State;
 
 public abstract class FacadeObserver {
     private static boolean isInitialized = false;
@@ -12,7 +13,12 @@ public abstract class FacadeObserver {
     private static Array<Player> players;
 
     public enum Event {
-        NEW_GAME, LEFT_PLAYER_SCORED, RIGHT_PLAYER_SCORED
+        NEW_GAME,
+        RESTART_ROUND,
+        LEFT_PLAYER_SCORED,
+        RIGHT_PLAYER_SCORED,
+        PAUSE_GAME,
+        RESUME_GAME
     }
 
     public static void initialize(JPongSick g) {
@@ -27,15 +33,35 @@ public abstract class FacadeObserver {
         if(!isInitialized) return;
         switch (e) {
             case NEW_GAME: {
-                restartGame();
+                newGame();
+                break;
+            }
+            case RESTART_ROUND: {
+                restartRound();
+                break;
+            }
+            case PAUSE_GAME: {
+                Announcer.setText("GAME PAUSED, PRESS SPACE TO CONTINUE");
+                Announcer.showLabel();
+                pauseGame();
+                break;
+            }
+            case RESUME_GAME: {
+                resumeGame();
                 break;
             }
             case LEFT_PLAYER_SCORED: {
+                Announcer.setText(players.get(0).getNickname().toUpperCase() + " SCORED, PRESS SPACE TO CONTINUE");
                 updatePoints(players.get(0));
+                Announcer.showLabel();
+                pauseGame();
                 break;
             }
             case RIGHT_PLAYER_SCORED: {
+                Announcer.setText(players.get(1).getNickname().toUpperCase() + " SCORED, PRESS SPACE TO CONTINUE");
                 updatePoints(players.get(1));
+                Announcer.showLabel();
+                pauseGame();
                 break;
             }
             default: {
@@ -46,16 +72,43 @@ public abstract class FacadeObserver {
 
     }
 
-    private static void restartGame() {
+    private static void newGame() {
+        restartRound();
+        players.get(0).resetScore();
+        players.get(1).resetScore();
+        players.get(0).updateLabel();
+        players.get(1).updateLabel();
+    }
+
+    private static void pauseGame() {
+        game.setState(State.PAUSE);
+    }
+
+    private static void resumeGame() {
+        Announcer.hideLabel();
+        game.setState(State.PLAYING);
+    }
+
+    private static void restartRound() {
         game.getGameScreen().getBall().restart();
         players.get(0).getPlatform().restart();
         players.get(1).getPlatform().restart();
-        game.getGameScreen().pause();
+    }
+
+    private static void playerWon(Player player) {
+        game.setState(State.GAME_OVER);
+        Announcer.setText(player.getNickname().toUpperCase() + " WON\nPRESS SPACE TO START NEW GAME");
+        Announcer.showLabel();
+        pauseGame();
+        newGame();
     }
 
     private static void updatePoints(Player player) {
         player.getScore().addPoints();
         player.updateLabel();
-        restartGame();
+
+        if (player.getScore().getPoints() >= Config.maxGoals) {
+            playerWon(player);
+        }
     }
 }
