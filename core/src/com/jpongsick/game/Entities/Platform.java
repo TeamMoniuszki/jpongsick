@@ -1,11 +1,11 @@
 package com.jpongsick.game.Entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.jpongsick.game.Config;
 
 
 public class Platform extends Rectangle{
@@ -39,7 +39,7 @@ public class Platform extends Rectangle{
     }
 
     public void restart(){
-        setCenter(this.getCenterX(), Gdx.app.getGraphics().getHeight() / 2);
+        setCenter(this.getCenterX(), Config.halfHeight);
     }
 
 }

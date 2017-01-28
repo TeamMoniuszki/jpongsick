@@ -36,8 +36,8 @@ public abstract class Physics {
             ball.y = 0;
             ball.speed.y *= -1;
         }
-        else if (ball.getCenterY()+ball.radius >= Gdx.app.getGraphics().getHeight()){
-            ball.y = Gdx.app.getGraphics().getHeight() - 2 * ball.radius;
+        else if (ball.getCenterY()+ball.radius >= Config.height){
+            ball.y = Config.height - 2 * ball.radius;
             ball.speed.y *= -1;
         }
 
@@ -45,7 +45,7 @@ public abstract class Physics {
         //LEFT, RIGHT
         if(ball.x <= 0) {
             FacadeObserver.notify(Event.RIGHT_PLAYER_SCORED);
-        } else if (ball.x + ball.radius*2 >= Gdx.app.getGraphics().getWidth()) {
+        } else if (ball.x + ball.radius*2 >= Config.width) {
             FacadeObserver.notify(Event.LEFT_PLAYER_SCORED);
         }
     }
@@ -62,8 +62,8 @@ public abstract class Physics {
 
 
     private static void platformWallCollisions(Platform platform) {
-        if(platform.getY() + platform.getHeight() >= Gdx.app.getGraphics().getHeight()){
-            platform.setY(Gdx.app.getGraphics().getHeight() - platform.getHeight());
+        if(platform.getY() + platform.getHeight() >= Config.height){
+            platform.setY(Config.height - platform.getHeight());
         }
         if(platform.getY() <= 0){
             platform.setY(0);

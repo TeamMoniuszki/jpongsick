@@ -33,20 +33,20 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, Config.width, Config.height);
 
         this.ball = new Ball(0, 0, 15);
-        this.ball.setCenter(Gdx.app.getGraphics().getWidth() / 2, Gdx.app.getGraphics().getHeight() / 2);
+        this.ball.setCenter(Config.halfWidth, Config.halfHeight);
 
         this.player1 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Waldek");
         this.player2 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Zdzichu");
-        this.player1.getPlatform().setCenter(25, Gdx.app.getGraphics().getHeight() / 2);
-        this.player2.getPlatform().setCenter(Gdx.app.getGraphics().getWidth() - 25, Gdx.app.getGraphics().getHeight() / 2);
+        this.player1.getPlatform().setCenter(25, Config.halfHeight);
+        this.player2.getPlatform().setCenter(Config.width - 25, Config.halfHeight);
 
-        this.player1.getLabel().setPosition(Gdx.app.getGraphics().getWidth() / 4f, 7 * Gdx.app.getGraphics().getHeight() / 8f, Align.center);
-        this.player2.getLabel().setPosition(0.75f * Gdx.app.getGraphics().getWidth() , 7 * Gdx.app.getGraphics().getHeight() / 8f, Align.center);
+        this.player1.getLabel().setPosition(Config.width / 4f, 7 * Config.height / 8f, Align.center);
+        this.player2.getLabel().setPosition(0.75f * Config.width , 7 * Config.height / 8f, Align.center);
         this.player1.getLabel().setVisible(false);
         this.player2.getLabel().setVisible(false);
 
         game.getStage().addActor(this.player1.getLabel());
-        game.getStage().addActor(this.player1.getLabel());
+        game.getStage().addActor(this.player2.getLabel());
 
         Physics.initialize(this.ball, this.player1.getPlatform(), this.player2.getPlatform(), game);
     }

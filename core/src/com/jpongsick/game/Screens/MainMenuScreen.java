@@ -26,7 +26,7 @@ public class MainMenuScreen implements Screen {
         camera.setToOrtho(false, Config.width, Config.height);
 
         buttonStart = new TextButton("START GAME", Config.textButtonStyle);
-        buttonStart.setPosition(Gdx.app.getGraphics().getWidth()/2, Gdx.app.getGraphics().getHeight()/2, Align.center);
+        buttonStart.setPosition(Config.halfWidth, Config.halfHeight, Align.center);
         game.getStage().addActor(buttonStart);
     }
 
