@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.jpongsick.game.Entities.Ball;
 import com.jpongsick.game.Entities.Platform;
 import com.jpongsick.game.Util.State;
+import com.jpongsick.game.FacadeObserver.Event;
 
 
 public abstract class Physics {
@@ -43,13 +44,9 @@ public abstract class Physics {
 
         //LEFT, RIGHT
         if(ball.x <= 0) {
-            game.getGameScreen().getPlayer2().getScore().addPoints();
-            game.getGameScreen().getScore2().setText(game.getGameScreen().getPlayer2().getNickname() + ": " + game.getGameScreen().getPlayer2().getScore().getPoints());
-            restart();
+            FacadeObserver.notify(Event.RIGHT_PLAYER_SCORED);
         } else if (ball.x + ball.radius*2 >= Gdx.app.getGraphics().getWidth()) {
-            game.getGameScreen().getPlayer1().getScore().addPoints();
-            game.getGameScreen().getScore1().setText(game.getGameScreen().getPlayer1().getNickname() + ": " + game.getGameScreen().getPlayer1().getScore().getPoints());
-            restart();
+            FacadeObserver.notify(Event.LEFT_PLAYER_SCORED);
         }
     }
 
@@ -71,13 +68,6 @@ public abstract class Physics {
         if(platform.getY() <= 0){
             platform.setY(0);
         }
-    }
-
-    private static void restart(){
-        ball.restart();
-        platform1.restart();
-        platform2.restart();
-        game.getGameScreen().pause();
     }
 
     private static void checkCollisions() {

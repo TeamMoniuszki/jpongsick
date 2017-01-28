@@ -48,9 +48,10 @@ public class JPongSick extends Game {
 		Config.initialize();
 		Input.initialize(this);
         PlayerManager.initialize();
+		FacadeObserver.initialize(this);
 
 		this.batch = new SpriteBatch();
-		this.stage = new Stage(/*new StretchViewport(Config.width, Config.height)*/);
+		this.stage = new Stage();
 		this.state = State.MENU;
 		this.mainMenuScreen = new MainMenuScreen(this, true);
 		this.gameScreen = new GameScreen(this, false);

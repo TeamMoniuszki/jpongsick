@@ -1,10 +1,15 @@
 package com.jpongsick.game.Entities;
 
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.jpongsick.game.Config;
+
 public class Player {
     private Platform platform;
     private Score score;
     private String nickname;
+    private Label label;
 
     /*------------------------------CONSTRUCTORS-------------------------*/
 
@@ -12,6 +17,8 @@ public class Player {
         this.platform = platform;
         this.score = score;
         this.nickname = nickname;
+
+        this.label = new Label(nickname + ": " + score.getPoints(), Config.labelStyle);
     }
 
     /*------------------------------GETTERS------------------------------*/
@@ -28,6 +35,9 @@ public class Player {
         return this.nickname;
     }
 
+    public Label getLabel() {
+        return label;
+    }
     /*------------------------------SETTERS------------------------------*/
 
     public void setPlatform(Platform platform){
@@ -42,10 +52,18 @@ public class Player {
         this.nickname = nickname;
     }
 
+    public void setLabel(Label label) {
+        this.label = label;
+    }
+
     /*------------------------------PUBLIC-------------------------------*/
 
     public static Player createPlayer(Platform platform, Score score, String nickname){
         return new Player(platform, score, nickname);
+    }
+
+    public void updateLabel() {
+        this.label.setText(nickname + ": " + score.getPoints());
     }
 
 }

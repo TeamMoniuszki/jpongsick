@@ -19,4 +19,8 @@ public abstract class PlayerManager {
         players.add(player);
         return player;
     }
+
+    public static Array<Player> getPlayers() {
+        return players;
+    }
 }
