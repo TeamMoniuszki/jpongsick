@@ -14,6 +14,8 @@ public abstract class Config{
     public static boolean isInitialized = false;
     public static int width = Gdx.app.getGraphics().getWidth();
     public static int height = Gdx.app.getGraphics().getHeight();
+    public static float halfWidth = width / 2f;
+    public static float halfHeight = height / 2f;
 
     public static Skin skin = new Skin();
     public static Pixmap pixmap = new Pixmap(150, 50, Pixmap.Format.RGBA8888);

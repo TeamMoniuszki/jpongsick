@@ -11,6 +11,7 @@ import com.jpongsick.game.Entities.*;
 import com.jpongsick.game.FacadeObserver;
 import com.jpongsick.game.JPongSick;
 import com.jpongsick.game.Physics;
+import com.jpongsick.game.Util.Announcer;
 import com.jpongsick.game.Util.State;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -24,9 +25,6 @@ public class GameScreen implements Screen {
     private Ball ball;
     private Player player1;
     private Player player2;
-//    private Viewport viewport;
-
-    private Label pauseMessage;
 
     public GameScreen(final JPongSick game,  boolean isVisible) {
         this.game = game;
@@ -42,16 +40,11 @@ public class GameScreen implements Screen {
         this.player1.getPlatform().setCenter(25, Gdx.app.getGraphics().getHeight() / 2);
         this.player2.getPlatform().setCenter(Gdx.app.getGraphics().getWidth() - 25, Gdx.app.getGraphics().getHeight() / 2);
 
-        this.pauseMessage = new Label("PRESS ANY KEY TO CONTINUE", new LabelStyle(Config.font, Color.WHITE));
-        this.pauseMessage.setPosition(Gdx.app.getGraphics().getWidth() / 2f, Gdx.app.getGraphics().getHeight() / 2f, Align.center);
-        this.pauseMessage.setVisible(false);
-
         this.player1.getLabel().setPosition(Gdx.app.getGraphics().getWidth() / 4f, 7 * Gdx.app.getGraphics().getHeight() / 8f, Align.center);
         this.player2.getLabel().setPosition(0.75f * Gdx.app.getGraphics().getWidth() , 7 * Gdx.app.getGraphics().getHeight() / 8f, Align.center);
         this.player1.getLabel().setVisible(false);
         this.player2.getLabel().setVisible(false);
 
-        game.getStage().addActor(pauseMessage);
         game.getStage().addActor(this.player1.getLabel());
         game.getStage().addActor(this.player1.getLabel());
 
@@ -97,7 +90,6 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         if (game.getState() != State.PLAYING) return;
-        this.pauseMessage.setVisible(false); //FIXME KAPRAWOSC OVERFLOW, NIE DZIALA W RESUME
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
@@ -114,7 +106,6 @@ public class GameScreen implements Screen {
         this.isVisible = true;
         this.player1.getLabel().setVisible(true);
         this.player2.getLabel().setVisible(true);
-        this.pauseMessage.setVisible(false);
     }
 
     @Override
@@ -122,20 +113,18 @@ public class GameScreen implements Screen {
         this.isVisible = false;
         this.player1.getLabel().setVisible(false);
         this.player2.getLabel().setVisible(false);
-        this.pauseMessage.setVisible(false);
     }
 
     @Override
     public void pause() {
         game.setState(State.PAUSE);
-        this.pauseMessage.setVisible(true);
-//        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-//            resume();
-//        }
+        Announcer.setText("GAME PAUSED, PRESS SPACE TO CONTINUE");
+        Announcer.showLabel();
     }
 
     @Override
     public void resume() {
+        Announcer.hideLabel();
         game.setState(State.PLAYING);
     }
 

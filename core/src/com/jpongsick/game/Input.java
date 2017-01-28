@@ -37,7 +37,7 @@ public abstract class Input {
             }
             case PAUSE: {
                 if(Gdx.input.isKeyPressed(Keys.SPACE)){
-                    game.setState(State.PLAYING);
+                    game.resume();
                 }
                 break;
             }

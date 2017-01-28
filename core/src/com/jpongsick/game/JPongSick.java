@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jpongsick.game.Entities.PlayerManager;
 import com.jpongsick.game.Screens.GameScreen;
+import com.jpongsick.game.Util.Announcer;
 import com.jpongsick.game.Util.State;
 import com.jpongsick.game.Screens.MainMenuScreen;
 
@@ -58,6 +59,8 @@ public class JPongSick extends Game {
 
 		Gdx.input.setInputProcessor(stage);
 		this.setScreen(mainMenuScreen);
+
+        Announcer.initialize(this);
 	}
 
 	@Override
