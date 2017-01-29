@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -46,6 +47,16 @@ public abstract class Config{
         skin.add("cursor", new Texture(pixmap));
         pixmap.dispose();
 
+        pixmap = new Pixmap(10, 10, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.fill();
+        skin.add("checkBoxOff", new Texture(pixmap));
+        pixmap.setColor(Color.BLACK);
+        pixmap.fill();
+        skin.add("checkBoxOn", new Texture(pixmap));
+        pixmap.dispose();
+
+
 
         TextButtonStyle textButtonStyle = new TextButtonStyle();
         textButtonStyle.up = skin.newDrawable("red", Color.DARK_GRAY);
@@ -62,10 +73,20 @@ public abstract class Config{
         textFieldStyle.fontColor = Color.BLACK;
         textFieldStyle.background = skin.newDrawable("white", Color.LIGHT_GRAY);
         textFieldStyle.focusedBackground = skin.newDrawable("white");
+        textFieldStyle.disabledBackground = skin.newDrawable("white", Color.DARK_GRAY);
         textFieldStyle.cursor = skin.newDrawable("cursor");
-
         textFieldStyle.selection = skin.newDrawable("white", 0.5f, 0.5f, 0.5f, 0.5f);
         skin.add("default", textFieldStyle);
+
+        CheckBox.CheckBoxStyle checkBoxStyle = new CheckBox.CheckBoxStyle();
+        checkBoxStyle.font = skin.getFont("default");
+        checkBoxStyle.checkboxOff = skin.getDrawable("checkBoxOff");
+        checkBoxStyle.checkboxOn = skin.getDrawable("checkBoxOn");
+        skin.add("default", checkBoxStyle);
+
+
+
+
 
         isInitialized = true;
     }

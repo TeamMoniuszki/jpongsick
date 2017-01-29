@@ -3,6 +3,7 @@ package com.jpongsick.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.jpongsick.game.Entities.AI;
 import com.jpongsick.game.Entities.Ball;
 import com.jpongsick.game.Entities.Platform;
 import com.jpongsick.game.Util.State;
@@ -25,6 +26,13 @@ public abstract class Physics {
     private static void integrate() {
         platform1.y += Input.leftP * Platform.speed * Gdx.graphics.getDeltaTime();
         platform2.y += Input.rightP * Platform.speed * Gdx.graphics.getDeltaTime();
+        ball.x += ball.speed.x * Gdx.graphics.getDeltaTime();
+        ball.y += ball.speed.y * Gdx.graphics.getDeltaTime();
+    }
+
+    private static void integrateAI() {
+        platform1.y += Input.leftP * Platform.speed * Gdx.graphics.getDeltaTime();
+        platform2.y += AI.movement * Platform.speed * Gdx.graphics.getDeltaTime();
         ball.x += ball.speed.x * Gdx.graphics.getDeltaTime();
         ball.y += ball.speed.y * Gdx.graphics.getDeltaTime();
     }
@@ -79,6 +87,11 @@ public abstract class Physics {
 
     public static void update() {
         integrate();
+        checkCollisions();
+    }
+
+    public static void updateAI() {
+        integrateAI();
         checkCollisions();
     }
 

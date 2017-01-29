@@ -9,7 +9,7 @@ public abstract class Input {
     private static boolean isInitialized = false;
     public static int leftP;
     public static int rightP;
-    public static boolean resume;
+//    public static boolean resume;
     private static JPongSick game;
 
     public static void initialize(JPongSick g){
@@ -17,7 +17,7 @@ public abstract class Input {
         leftP = 0;
         rightP = 0;
         game = g;
-        resume = false;
+//        resume = false;
 
 
         isInitialized = true;
@@ -35,10 +35,19 @@ public abstract class Input {
                 leftP = Gdx.input.isKeyPressed(Keys.W) ? 1 : Gdx.input.isKeyPressed(Keys.S) ? -1 : 0;
                 break;
             }
+
+            case AI_GAME: {
+                leftP = Gdx.input.isKeyPressed(Keys.W) ? 1 : Gdx.input.isKeyPressed(Keys.S) ? -1 : 0;
+                break;
+            }
+
             case PAUSE: {
                 if(Gdx.input.isKeyPressed(Keys.SPACE)){
                     FacadeObserver.notify(FacadeObserver.Event.RESTART_ROUND);
                     FacadeObserver.notify(FacadeObserver.Event.RESUME_GAME);
+                }
+                if(Gdx.input.isKeyPressed(Keys.ESCAPE)){
+                    FacadeObserver.notify(FacadeObserver.Event.EXIT_TO_MAIN_MENU);
                 }
                 break;
             }

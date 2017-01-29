@@ -18,7 +18,8 @@ public abstract class FacadeObserver {
         LEFT_PLAYER_SCORED,
         RIGHT_PLAYER_SCORED,
         PAUSE_GAME,
-        RESUME_GAME
+        RESUME_GAME,
+        EXIT_TO_MAIN_MENU
     }
 
     public static void initialize(JPongSick g) {
@@ -64,6 +65,10 @@ public abstract class FacadeObserver {
                 pauseGame();
                 break;
             }
+            case EXIT_TO_MAIN_MENU: {
+                exitToMainMenu();
+                break;
+            }
             default: {
 
                 break;
@@ -86,7 +91,12 @@ public abstract class FacadeObserver {
 
     private static void resumeGame() {
         Announcer.hideLabel();
-        game.setState(State.PLAYING);
+        if(game.getMainMenuScreen().isAiGame()){
+            game.setState(State.AI_GAME);
+        }
+        else {
+            game.setState(State.PLAYING);
+        }
     }
 
     private static void restartRound() {
@@ -97,7 +107,7 @@ public abstract class FacadeObserver {
 
     private static void playerWon(Player player) {
         game.setState(State.GAME_OVER);
-        Announcer.setText(player.getNickname().toUpperCase() + " WON\nPRESS SPACE TO START NEW GAME");
+        Announcer.setText(player.getNickname().toUpperCase() + " WON\nPRESS SPACE TO START NEW GAME\nESC TO EXIT TO MAIN MENU");
         Announcer.showLabel();
         pauseGame();
         newGame();
@@ -110,5 +120,13 @@ public abstract class FacadeObserver {
         if (player.getScore().getPoints() >= Config.maxGoals) {
             playerWon(player);
         }
+    }
+
+    private static void exitToMainMenu(){
+        Announcer.hideLabel();
+        game.getGameScreen().hide();
+        game.getMainMenuScreen().show();
+        game.setState(State.MENU);
+        game.setScreen(game.getMainMenuScreen());
     }
 }

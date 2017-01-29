@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g3d.particles.batches.BillboardParticleBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.jpongsick.game.Entities.AI;
 import com.jpongsick.game.Entities.PlayerManager;
 import com.jpongsick.game.Screens.GameScreen;
 import com.jpongsick.game.Util.Announcer;
@@ -48,7 +49,8 @@ public class JPongSick extends Game {
 	public void create () {
 		Config.initialize();
 		Input.initialize(this);
-        PlayerManager.initialize();
+		AI.initialize(this);
+		PlayerManager.initialize();
 		FacadeObserver.initialize(this);
 
 		this.batch = new SpriteBatch();
@@ -69,6 +71,7 @@ public class JPongSick extends Game {
 		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		stage.draw();
         Input.update();
+		AI.update();
 	}
 	
 	@Override

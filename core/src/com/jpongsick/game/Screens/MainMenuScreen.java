@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.jpongsick.game.Config;
 import com.jpongsick.game.FacadeObserver;
@@ -21,6 +19,8 @@ public class MainMenuScreen implements Screen {
     private boolean isVisible;
     private TextField nickInput1;
     private TextField nickInput2;
+    private CheckBox aiCheckbox;
+    private boolean aiGame;
 
     public MainMenuScreen(final JPongSick game, boolean isVisible) {
         this.game = game;
@@ -39,9 +39,15 @@ public class MainMenuScreen implements Screen {
         nickInput1.setMaxLength(15);
         nickInput2.setMaxLength(15);
 
+        aiCheckbox = new CheckBox("BOT", Config.skin);
+        aiCheckbox.setPosition(Config.halfWidth, Config.height/5f, Align.center);
+        aiGame = false;
+
+
         game.getStage().addActor(buttonStart);
         game.getStage().addActor(nickInput1);
         game.getStage().addActor(nickInput2);
+        game.getStage().addActor(aiCheckbox);
     }
 
     public TextField getNickInput1() {
@@ -60,6 +66,14 @@ public class MainMenuScreen implements Screen {
         this.nickInput2 = nickInput2;
     }
 
+    public boolean isAiGame() {
+        return aiGame;
+    }
+
+    public void setAiGame(boolean aiGame) {
+        this.aiGame = aiGame;
+    }
+
     public void draw() {
         game.getBatch().begin();
 
@@ -69,14 +83,20 @@ public class MainMenuScreen implements Screen {
     @Override
     public void render(float delta) {
         if(game.getState() != State.MENU) return;
+        if(aiCheckbox.isChecked()){
+            nickInput2.setDisabled(true);
+        }
+        else {
+            nickInput2.setDisabled(false);
+        }
         Gdx.gl.glClearColor(0, 0.3f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
-
         this.draw();
 
         if (buttonStart.isPressed()) {
+            this.aiGame = aiCheckbox.isChecked();
             hide();
             game.getGameScreen().show();
             FacadeObserver.notify(FacadeObserver.Event.RESUME_GAME);
@@ -90,8 +110,11 @@ public class MainMenuScreen implements Screen {
         this.isVisible = true;
         game.setState(State.MENU);
         buttonStart.setVisible(true);
+        nickInput1.setText(game.getGameScreen().getPlayer1().getNickname());
+        nickInput2.setText(game.getGameScreen().getPlayer2().getNickname());
         nickInput1.setVisible(true);
         nickInput2.setVisible(true);
+        aiCheckbox.setVisible(true);
     }
 
     @Override
@@ -100,6 +123,7 @@ public class MainMenuScreen implements Screen {
         buttonStart.setVisible(false);
         nickInput1.setVisible(false);
         nickInput2.setVisible(false);
+        aiCheckbox.setVisible(false);
     }
 
     @Override

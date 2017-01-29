@@ -1,21 +1,15 @@
 package com.jpongsick.game.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Rectangle;
 import com.jpongsick.game.Config;
 import com.jpongsick.game.Entities.*;
-import com.jpongsick.game.FacadeObserver;
 import com.jpongsick.game.JPongSick;
 import com.jpongsick.game.Physics;
-import com.jpongsick.game.Util.Announcer;
+import com.jpongsick.game.Util.BotUtils;
 import com.jpongsick.game.Util.State;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 
 
@@ -36,8 +30,8 @@ public class GameScreen implements Screen {
         this.ball = new Ball(0, 0, 15);
         this.ball.setCenter(Config.halfWidth, Config.halfHeight);
 
-        this.player1 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Waldek");
-        this.player2 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Zdzichu");
+        this.player1 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Player1");
+        this.player2 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Player2");
         this.player1.getPlatform().setCenter(25, Config.halfHeight);
         this.player2.getPlatform().setCenter(Config.width - 25, Config.halfHeight);
 
@@ -98,6 +92,9 @@ public class GameScreen implements Screen {
         if (game.getState() == State.PLAYING) {
             Physics.update();
         }
+        else if (game.getState() == State.AI_GAME) {
+            Physics.updateAI();
+        }
         this.draw();
 
     }
@@ -110,7 +107,12 @@ public class GameScreen implements Screen {
         this.player1.updateLabel();
         this.player1.getLabel().setVisible(true);
 
-        this.player2.setNickname(game.getMainMenuScreen().getNickInput2().getText());
+        if(game.getMainMenuScreen().getNickInput2().isDisabled()){
+            this.player2.setNickname(BotUtils.randomNickname());
+        }
+        else {
+            this.player2.setNickname(game.getMainMenuScreen().getNickInput2().getText());
+        }
         this.player2.updateLabel();
         this.player2.getLabel().setVisible(true);
 
