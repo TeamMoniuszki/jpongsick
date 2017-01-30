@@ -9,7 +9,7 @@ public abstract class AI {
     private static JPongSick game;
     private static String[] names;
     private static int movement;
-    public static Difficulty difficulty = Difficulty.EASY;
+    public static Difficulty difficulty;
     public enum Difficulty {
         EASY, MEDIUM, HARD
     }
@@ -19,6 +19,7 @@ public abstract class AI {
         if(isInitialized) return;
         game = g;
         movement = 0;
+        difficulty = Difficulty.EASY;
         names = new String[]
                 {"Albert", "Allen", "Bert", "Bob", "Cecil",
                 "Clarence", "Elliot", "Elmer", "Ernie",

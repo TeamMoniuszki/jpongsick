@@ -28,8 +28,6 @@ public abstract class Physics {
         platform2.y += Input.rightP * Platform.speed * Gdx.graphics.getDeltaTime();
         ball.x += ball.speed.x * Gdx.graphics.getDeltaTime();
         ball.y += ball.speed.y * Gdx.graphics.getDeltaTime();
-
-//        platform2.y += AI.getMovement() * Platform.speed * Gdx.graphics.getDeltaTime();
     }
 
 

@@ -73,16 +73,17 @@ public class MainMenuScreen implements Screen {
     @Override
     public void render(float delta) {
         if(game.getState() != State.MENU) return;
+        Gdx.gl.glClearColor(0, 0.3f, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        camera.update();
+        game.getBatch().setProjectionMatrix(camera.combined);
+
         if(aiCheckbox.isChecked()){
             nickInput2.setDisabled(true);
         }
         else {
             nickInput2.setDisabled(false);
         }
-        Gdx.gl.glClearColor(0, 0.3f, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camera.update();
-        game.getBatch().setProjectionMatrix(camera.combined);
         this.draw();
 
         if (buttonStart.isPressed()) {

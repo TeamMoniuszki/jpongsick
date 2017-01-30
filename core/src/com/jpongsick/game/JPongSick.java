@@ -62,6 +62,7 @@ public class JPongSick extends Game {
 		Gdx.input.setInputProcessor(stage);
 		this.setScreen(mainMenuScreen);
 
+        //Announcer must be initialized last
         Announcer.initialize(this);
 	}
 

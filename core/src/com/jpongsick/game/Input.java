@@ -37,7 +37,6 @@ public abstract class Input {
                 }
                 break;
             }
-
             case PAUSE: {
                 if(Gdx.input.isKeyPressed(Keys.SPACE)){
                     FacadeObserver.notify(FacadeObserver.Event.RESTART_ROUND);
