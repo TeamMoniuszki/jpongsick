@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.jpongsick.game.Config;
 import com.jpongsick.game.FacadeObserver;
+import com.jpongsick.game.Input;
 import com.jpongsick.game.JPongSick;
 import com.jpongsick.game.Util.State;
 
@@ -20,7 +21,6 @@ public class MainMenuScreen implements Screen {
     private TextField nickInput1;
     private TextField nickInput2;
     private CheckBox aiCheckbox;
-    private boolean aiGame;
 
     public MainMenuScreen(final JPongSick game, boolean isVisible) {
         this.game = game;
@@ -41,8 +41,6 @@ public class MainMenuScreen implements Screen {
 
         aiCheckbox = new CheckBox("BOT", Config.skin);
         aiCheckbox.setPosition(Config.halfWidth, Config.height/5f, Align.center);
-        aiGame = false;
-
 
         game.getStage().addActor(buttonStart);
         game.getStage().addActor(nickInput1);
@@ -64,14 +62,6 @@ public class MainMenuScreen implements Screen {
 
     public void setNickInput2(TextField nickInput2) {
         this.nickInput2 = nickInput2;
-    }
-
-    public boolean isAiGame() {
-        return aiGame;
-    }
-
-    public void setAiGame(boolean aiGame) {
-        this.aiGame = aiGame;
     }
 
     public void draw() {
@@ -96,7 +86,7 @@ public class MainMenuScreen implements Screen {
         this.draw();
 
         if (buttonStart.isPressed()) {
-            this.aiGame = aiCheckbox.isChecked();
+            FacadeObserver.isAIGame = aiCheckbox.isChecked();
             hide();
             game.getGameScreen().show();
             FacadeObserver.notify(FacadeObserver.Event.RESUME_GAME);

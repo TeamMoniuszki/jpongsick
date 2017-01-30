@@ -28,14 +28,10 @@ public abstract class Physics {
         platform2.y += Input.rightP * Platform.speed * Gdx.graphics.getDeltaTime();
         ball.x += ball.speed.x * Gdx.graphics.getDeltaTime();
         ball.y += ball.speed.y * Gdx.graphics.getDeltaTime();
+
+//        platform2.y += AI.getMovement() * Platform.speed * Gdx.graphics.getDeltaTime();
     }
 
-    private static void integrateAI() {
-        platform1.y += Input.leftP * Platform.speed * Gdx.graphics.getDeltaTime();
-        platform2.y += AI.movement * Platform.speed * Gdx.graphics.getDeltaTime();
-        ball.x += ball.speed.x * Gdx.graphics.getDeltaTime();
-        ball.y += ball.speed.y * Gdx.graphics.getDeltaTime();
-    }
 
     private static void ballWallCollisions() {
         //DOWN, UP
@@ -87,11 +83,6 @@ public abstract class Physics {
 
     public static void update() {
         integrate();
-        checkCollisions();
-    }
-
-    public static void updateAI() {
-        integrateAI();
         checkCollisions();
     }
 

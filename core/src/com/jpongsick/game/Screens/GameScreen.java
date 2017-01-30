@@ -8,7 +8,6 @@ import com.jpongsick.game.Config;
 import com.jpongsick.game.Entities.*;
 import com.jpongsick.game.JPongSick;
 import com.jpongsick.game.Physics;
-import com.jpongsick.game.Util.BotUtils;
 import com.jpongsick.game.Util.State;
 import com.badlogic.gdx.utils.Align;
 
@@ -47,17 +46,6 @@ public class GameScreen implements Screen {
     }
 
 
-
-    public void draw() {
-        game.getBatch().begin();
-
-        game.getBatch().draw(ball.texture, ball.x, ball.y);
-        game.getBatch().draw(player1.getPlatform().texture, player1.getPlatform().x, player1.getPlatform().y);
-        game.getBatch().draw(player2.getPlatform().texture, player2.getPlatform().x, player2.getPlatform().y);
-
-        game.getBatch().end();
-    }
-
     public Ball getBall() {
         return ball;
     }
@@ -82,6 +70,16 @@ public class GameScreen implements Screen {
         this.player2 = player2;
     }
 
+    public void draw() {
+        game.getBatch().begin();
+
+        game.getBatch().draw(ball.texture, ball.x, ball.y);
+        game.getBatch().draw(player1.getPlatform().texture, player1.getPlatform().x, player1.getPlatform().y);
+        game.getBatch().draw(player2.getPlatform().texture, player2.getPlatform().x, player2.getPlatform().y);
+
+        game.getBatch().end();
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -92,11 +90,8 @@ public class GameScreen implements Screen {
         if (game.getState() == State.PLAYING) {
             Physics.update();
         }
-        else if (game.getState() == State.AI_GAME) {
-            Physics.updateAI();
-        }
-        this.draw();
 
+        this.draw();
     }
 
     @Override
@@ -108,7 +103,7 @@ public class GameScreen implements Screen {
         this.player1.getLabel().setVisible(true);
 
         if(game.getMainMenuScreen().getNickInput2().isDisabled()){
-            this.player2.setNickname(BotUtils.randomNickname());
+            this.player2.setNickname(AI.getRandomNickname());
         }
         else {
             this.player2.setNickname(game.getMainMenuScreen().getNickInput2().getText());

@@ -11,7 +11,7 @@ public abstract class FacadeObserver {
     private static boolean isInitialized = false;
     private static JPongSick game;
     private static Array<Player> players;
-
+    public static boolean isAIGame;
     public enum Event {
         NEW_GAME,
         RESTART_ROUND,
@@ -91,12 +91,8 @@ public abstract class FacadeObserver {
 
     private static void resumeGame() {
         Announcer.hideLabel();
-        if(game.getMainMenuScreen().isAiGame()){
-            game.setState(State.AI_GAME);
-        }
-        else {
-            game.setState(State.PLAYING);
-        }
+        game.setState(State.PLAYING);
+
     }
 
     private static void restartRound() {

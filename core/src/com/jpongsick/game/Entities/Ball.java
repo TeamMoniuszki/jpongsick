@@ -7,10 +7,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.jpongsick.game.Config;
 
 
 public class Ball extends Circle {
-    public static int len = 700;
+    public static int len = (int) (Config.width * 1.2f);
     public Vector2 speed;
     public Pixmap pixmap;
     public Texture texture;

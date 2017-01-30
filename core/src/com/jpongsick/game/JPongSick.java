@@ -71,7 +71,6 @@ public class JPongSick extends Game {
 		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		stage.draw();
         Input.update();
-		AI.update();
 	}
 	
 	@Override
