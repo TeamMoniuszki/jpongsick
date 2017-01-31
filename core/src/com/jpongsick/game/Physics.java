@@ -41,9 +41,9 @@ public abstract class Physics {
 
         //LEFT, RIGHT
         if(ball.x <= 0) {
-            Logic.handle(Event.LEFT_PLAYER_SCORED);
-        } else if (ball.x + ball.radius*2 >= Config.width) {
             Logic.handle(Event.RIGHT_PLAYER_SCORED);
+        } else if (ball.x + ball.radius*2 >= Config.width) {
+            Logic.handle(Event.LEFT_PLAYER_SCORED);
         }
     }
 

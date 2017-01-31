@@ -66,7 +66,7 @@ public abstract class Logic {
 
         if (player.getScore().getPoints() >= Config.maxGoals) {
             game.setState(State.GAME_OVER);
-            Announcer.setText(player.getNickname().toUpperCase() + " WON\nPRESS SPACE TO START NEW GAME\nESC TO EXIT TO MAIN MENU");
+            Announcer.setText(player.getNickname().toUpperCase() + " WON\nESC TO EXIT TO MAIN MENU");
         } else {
             game.setState(State.ROUND_OVER);
             Announcer.setText(player.getNickname().toUpperCase() + " SCORED, PRESS SPACE TO CONTINUE");
