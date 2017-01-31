@@ -95,8 +95,8 @@ public class MainMenuScreen implements Screen {
         this.isVisible = true;
         game.setState(State.MENU);
         buttonStart.setVisible(true);
-        nickInput1.setText(game.getGameScreen().getPlayer1().getNickname());
-        nickInput2.setText(game.getGameScreen().getPlayer2().getNickname());
+        nickInput1.setText(game.getGameScreen().getPlayer1().getNickname().toUpperCase());
+        nickInput2.setText(game.getGameScreen().getPlayer2().getNickname().toUpperCase());
         nickInput1.setVisible(true);
         nickInput2.setVisible(true);
         aiCheckbox.setVisible(true);
