@@ -16,11 +16,10 @@ public class Ball extends Circle {
     public Pixmap pixmap;
     public Texture texture;
 
-
     public Ball(float x, float y, float radius) {
         super(x, y, radius);
         speed = new Vector2(1,1);
-        restart();
+        resetPos();
         pixmap = new Pixmap((int) radius * 2 + 1, (int) radius * 2 + 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);
         pixmap.fillCircle((int) radius, (int) radius, (int) radius);
@@ -41,10 +40,9 @@ public class Ball extends Circle {
     }
 
     public void randomizeAngle() {
-        int temp = MathUtils.random(0, 7);
-        int rotation = MathUtils.random(1,4);
-        this.speed.setAngle(temp);
+        this.speed.setAngle(MathUtils.random(0, 7));
         this.speed.setLength(len);
+        int rotation = MathUtils.random(1,4);
         switch(rotation){
             case 1:
                 break;
@@ -61,7 +59,7 @@ public class Ball extends Circle {
         }
     }
 
-    public void restart(){
+    public void resetPos(){
         setCenter(Gdx.app.getGraphics().getWidth()/2, Gdx.app.getGraphics().getHeight()/2);
         this.randomizeAngle();
     }

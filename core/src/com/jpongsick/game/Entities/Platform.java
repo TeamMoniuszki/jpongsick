@@ -38,7 +38,7 @@ public class Platform extends Rectangle{
         return y + height / 2;
     }
 
-    public void restart(){
+    public void resetPos(){
         setCenter(this.getCenterX(), Config.halfHeight);
     }
 

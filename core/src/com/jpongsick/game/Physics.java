@@ -2,13 +2,9 @@ package com.jpongsick.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.jpongsick.game.Entities.AI;
 import com.jpongsick.game.Entities.Ball;
 import com.jpongsick.game.Entities.Platform;
-import com.jpongsick.game.Util.State;
-import com.jpongsick.game.FacadeObserver.Event;
-
+import com.jpongsick.game.Logic.Event;
 
 public abstract class Physics {
     private static Ball ball;
@@ -45,9 +41,9 @@ public abstract class Physics {
 
         //LEFT, RIGHT
         if(ball.x <= 0) {
-            FacadeObserver.notify(Event.RIGHT_PLAYER_SCORED);
+            Logic.handle(Event.LEFT_PLAYER_SCORED);
         } else if (ball.x + ball.radius*2 >= Config.width) {
-            FacadeObserver.notify(Event.LEFT_PLAYER_SCORED);
+            Logic.handle(Event.RIGHT_PLAYER_SCORED);
         }
     }
 

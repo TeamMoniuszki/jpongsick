@@ -13,6 +13,10 @@ public abstract class PlayerManager {
         isInitialized = true;
     }
 
+    public static Array<Player> getPlayers() {
+        return players;
+    }
+
     public static Player createPlayer(Platform platform, Score score, String nickname){
         if (!isInitialized) return null;
         Player player = Player.createPlayer(platform, score, nickname);
@@ -20,7 +24,9 @@ public abstract class PlayerManager {
         return player;
     }
 
-    public static Array<Player> getPlayers() {
-        return players;
+    public static void restartPlayers() {
+        for (Player player: players) {
+            player.restart();
+        }
     }
 }

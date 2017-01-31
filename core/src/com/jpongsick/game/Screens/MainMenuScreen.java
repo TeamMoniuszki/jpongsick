@@ -6,10 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
-import com.jpongsick.game.Config;
-import com.jpongsick.game.FacadeObserver;
-import com.jpongsick.game.Input;
-import com.jpongsick.game.JPongSick;
+import com.jpongsick.game.*;
 import com.jpongsick.game.Util.State;
 
 
@@ -73,7 +70,7 @@ public class MainMenuScreen implements Screen {
     @Override
     public void render(float delta) {
         if(game.getState() != State.MENU) return;
-        Gdx.gl.glClearColor(0, 0.3f, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
@@ -87,11 +84,8 @@ public class MainMenuScreen implements Screen {
         this.draw();
 
         if (buttonStart.isPressed()) {
-            FacadeObserver.isAIGame = aiCheckbox.isChecked();
-            hide();
-            game.getGameScreen().show();
-            FacadeObserver.notify(FacadeObserver.Event.RESUME_GAME);
-            game.setScreen(game.getGameScreen());
+            Logic.isAIGame = aiCheckbox.isChecked();
+            Logic.handle(Logic.Event.NEW_GAME);
         }
 
     }

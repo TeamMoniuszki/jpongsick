@@ -58,6 +58,7 @@ public abstract class AI {
                 break;
             }
         }
+
         return movement;
     }
 

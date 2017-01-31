@@ -3,10 +3,7 @@ package com.jpongsick.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.particles.batches.BillboardParticleBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jpongsick.game.Entities.AI;
 import com.jpongsick.game.Entities.PlayerManager;
 import com.jpongsick.game.Screens.GameScreen;
@@ -47,11 +44,12 @@ public class JPongSick extends Game {
 
 	@Override
 	public void create () {
+		//Order is important
 		Config.initialize();
 		Input.initialize(this);
 		AI.initialize(this);
 		PlayerManager.initialize();
-		FacadeObserver.initialize(this);
+		Logic.initialize(this);
 
 		this.batch = new SpriteBatch();
 		this.stage = new Stage();
