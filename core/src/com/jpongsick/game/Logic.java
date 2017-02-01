@@ -1,6 +1,7 @@
 package com.jpongsick.game;
 
 
+import com.jpongsick.game.Entities.AI;
 import com.jpongsick.game.Entities.Player;
 import com.jpongsick.game.Entities.PlayerManager;
 import com.jpongsick.game.Util.Announcer;
@@ -12,10 +13,12 @@ public abstract class Logic {
     public static boolean isAIGame;
     public enum Event {
         NEW_GAME,
+        LEFT_PLATFORM_HIT,
+        RIGHT_PLATFORM_HIT,
         LEFT_PLAYER_SCORED,
         RIGHT_PLAYER_SCORED,
-        EXITED_TO_MAIN_MENU,
         GAME_RESUMED,
+        EXITED_TO_MAIN_MENU,
     }
 
     public static void initialize(JPongSick g) {
@@ -33,14 +36,27 @@ public abstract class Logic {
                 resumeGame();
                 break;
             }
+
+            case LEFT_PLATFORM_HIT: {
+                AI.handleEvent(e);
+                break;
+            }
+
+            case RIGHT_PLATFORM_HIT: {
+                AI.handleEvent(e);
+                break;
+            }
+
             case LEFT_PLAYER_SCORED: {
                 playerScored(PlayerManager.getPlayers().get(0));
                 break;
             }
+
             case RIGHT_PLAYER_SCORED: {
                 playerScored(PlayerManager.getPlayers().get(1));
                 break;
             }
+
             case GAME_RESUMED: {
                 resumeGame();
                 break;
@@ -71,6 +87,7 @@ public abstract class Logic {
             game.setState(State.ROUND_OVER);
             Announcer.setText(player.getNickname().toUpperCase() + " SCORED, PRESS SPACE TO CONTINUE");
             game.getGameScreen().getBall().resetPos();
+            Physics.ghostBall.resetPos();
             PlayerManager.getPlayers().get(0).getPlatform().resetPos();
             PlayerManager.getPlayers().get(1).getPlatform().resetPos();
         }

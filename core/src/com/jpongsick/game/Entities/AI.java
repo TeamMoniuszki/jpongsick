@@ -1,7 +1,10 @@
 package com.jpongsick.game.Entities;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.jpongsick.game.Config;
 import com.jpongsick.game.JPongSick;
+import com.jpongsick.game.Logic;
+import com.jpongsick.game.Physics;
 
 
 public abstract class AI {
@@ -19,7 +22,7 @@ public abstract class AI {
         if(isInitialized) return;
         game = g;
         movement = 0;
-        difficulty = Difficulty.EASY;
+        difficulty = Difficulty.HARD;
         names = new String[]
                 {"Albert", "Allen", "Bert", "Bob", "Cecil",
                 "Clarence", "Elliot", "Elmer", "Ernie",
@@ -54,12 +57,39 @@ public abstract class AI {
                 break;
             }
             case HARD: {
+                if(Physics.ghostBall.getCenterY() - game.getGameScreen().getPlayer2().getPlatform().getCenterY() > 3){
+                    movement = 1;
+                }
+                else if (Physics.ghostBall.getCenterY() - game.getGameScreen().getPlayer2().getPlatform().getCenterY() < -3){
+                    movement = -1;
+                }
+                else movement = 0;
 
                 break;
             }
         }
 
         return movement;
+    }
+
+    public static void handleEvent(Logic.Event e) {
+        switch(e) {
+            case LEFT_PLATFORM_HIT: {
+                while((Physics.ghostBall.getCenterX() + Physics.ghostBall.radius) <
+                        (PlayerManager.getPlayers().get(1).getPlatform().getCenterX() - PlayerManager.getPlayers().get(1).getPlatform().getWidth()/2)){
+                    if(Physics.ghostBall.speed.x == 0) break;
+                    Physics.calculateTrajectory();
+                }
+
+                break;
+            }
+            case RIGHT_PLATFORM_HIT: {
+                Physics.ghostBall.resetPos();
+                break;
+            }
+
+        }
+
     }
 
 

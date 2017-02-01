@@ -26,7 +26,10 @@ public abstract class Input {
         //TODO: Make this work on android
         switch (game.getState()) {
             case MENU: {
-
+                if(Gdx.input.isKeyPressed(Keys.ENTER)){
+                    Logic.isAIGame = game.getMainMenuScreen().getAiCheckbox().isChecked();
+                    Logic.handle(Logic.Event.NEW_GAME);
+                }
                 break;
             }
             case PLAYING: {

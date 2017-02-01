@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Class-Path: lwjgl_util-2.9.2.jar jinput-platform-2.0.5-natives-linux.j
+ ar gdx-platform-1.9.5-natives-desktop.jar jinput-2.0.5.jar jorbis-0.0
+ .17.jar jlayer-1.0.1-gdx.jar lwjgl-platform-2.9.2-natives-linux.jar g
+ dx-1.9.5.jar jinput-platform-2.0.5-natives-osx.jar lwjgl-platform-2.9
+ .2-natives-osx.jar lwjgl-2.9.2.jar lwjgl-platform-2.9.2-natives-windo
+ ws.jar jutils-1.0.0.jar gdx-backend-lwjgl-1.9.5.jar desktop-1.0.jar j
+ input-platform-2.0.5-natives-windows.jar
+Main-Class: com.jpongsick.game.desktop.DesktopLauncher
+

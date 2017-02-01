@@ -61,6 +61,14 @@ public class MainMenuScreen implements Screen {
         this.nickInput2 = nickInput2;
     }
 
+    public CheckBox getAiCheckbox() {
+        return aiCheckbox;
+    }
+
+    public void setAiCheckbox(CheckBox aiCheckbox) {
+        this.aiCheckbox = aiCheckbox;
+    }
+
     public void draw() {
         game.getBatch().begin();
 
