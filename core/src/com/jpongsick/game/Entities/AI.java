@@ -57,10 +57,10 @@ public abstract class AI {
                 break;
             }
             case HARD: {
-                if(Physics.ghostBall.getCenterY() - game.getGameScreen().getPlayer2().getPlatform().getCenterY() > 3){
+                if(Physics.ghostBall.getCenterY() - game.getGameScreen().getPlayer2().getPlatform().getCenterY() > 15){
                     movement = 1;
                 }
-                else if (Physics.ghostBall.getCenterY() - game.getGameScreen().getPlayer2().getPlatform().getCenterY() < -3){
+                else if (Physics.ghostBall.getCenterY() - game.getGameScreen().getPlayer2().getPlatform().getCenterY() < -15){
                     movement = -1;
                 }
                 else movement = 0;
@@ -77,7 +77,7 @@ public abstract class AI {
             case LEFT_PLATFORM_HIT: {
                 while((Physics.ghostBall.getCenterX() + Physics.ghostBall.radius) <
                         (PlayerManager.getPlayers().get(1).getPlatform().getCenterX() - PlayerManager.getPlayers().get(1).getPlatform().getWidth()/2)){
-                    if(Physics.ghostBall.speed.x == 0) break;
+                    if(Physics.ghostBall.speed.x <= 0) break;
                     Physics.calculateTrajectory();
                 }
 
