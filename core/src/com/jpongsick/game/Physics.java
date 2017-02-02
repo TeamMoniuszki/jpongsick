@@ -53,6 +53,8 @@ public abstract class Physics {
         }
     }
 
+    //FIXME: platform - ball collisions on screens with height greater than 800
+    //FIXME: ball speed too high to properly calculate collisions
     private static void platformBallCollisions(Platform platform) {
         if (platform.overlaps(ball)){
             Vector2 newVector = new Vector2(ball.getCenterX() - platform.getCenterX(), ball.getCenterY() - platform.getCenterY());
