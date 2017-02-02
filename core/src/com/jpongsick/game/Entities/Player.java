@@ -2,7 +2,7 @@ package com.jpongsick.game.Entities;
 
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.jpongsick.game.Config;
+import com.jpongsick.game.Util.UIManager;
 
 public class Player {
     private Platform platform;
@@ -17,7 +17,7 @@ public class Player {
         this.score = score;
         this.nickname = nickname;
 
-        this.label = new Label(nickname.toUpperCase() + ": " + score.getPoints(), Config.skin);
+        this.label = new Label(nickname.toUpperCase() + ": " + score.getPoints(), UIManager.skin);
     }
 
     public static Player createPlayer(Platform platform, Score score, String nickname){

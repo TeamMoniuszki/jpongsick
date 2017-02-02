@@ -2,6 +2,7 @@ package com.jpongsick.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.jpongsick.game.Config;
@@ -40,8 +41,8 @@ public class GameScreen implements Screen {
         this.player1.getLabel().setVisible(false);
         this.player2.getLabel().setVisible(false);
 
-        game.getStage().addActor(this.player1.getLabel());
-        game.getStage().addActor(this.player2.getLabel());
+        game.addActor(this.player1.getLabel());
+        game.addActor(this.player2.getLabel());
 
         Physics.initialize(this.ball, this.player1.getPlatform(), this.player2.getPlatform(), game);
     }

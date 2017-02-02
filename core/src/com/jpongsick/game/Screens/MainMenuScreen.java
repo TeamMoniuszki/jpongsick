@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.jpongsick.game.*;
 import com.jpongsick.game.Entities.AI;
+import com.jpongsick.game.Util.UIManager;
 import com.jpongsick.game.Util.State;
 
 
@@ -28,33 +29,17 @@ public class MainMenuScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Config.width, Config.height);
 
-        buttonStart = new TextButton("START GAME", Config.skin);
-        buttonStart.setPosition(Config.halfWidth, Config.halfHeight, Align.center);
+        buttonStart = UIManager.createTextButton("START GAME", UIManager.skin, (float)(0.1875 * Config.width), (float)(Config.height/12), Config.halfWidth, Config.halfHeight, Align.center);
+        nickInput1 = UIManager.createTextField("Player 1", UIManager.skin, (float)(0.1875 * Config.width), (float)(Config.height/20), Config.width/3f, Config.height/3f, Align.center, 15);
+        nickInput2 = UIManager.createTextField("Player 2", UIManager.skin, (float)(0.1875 * Config.width), (float)(Config.height/20), 2*Config.width/3f, Config.height/3f, Align.center, 15);
+        aiCheckbox = UIManager.createCheckBox("BOT", UIManager.skin, Config.halfWidth, Config.height/5f, Align.center);
+        difficultySelection = UIManager.createSelectBox(UIManager.skin, "Difficulty", Config.width/8, Config.height/20, 3, Config.halfWidth, Config.halfHeight/4, Align.center, AI.Difficulty.values(), true, false);
 
-        nickInput1 = new TextField("Player 1", Config.skin);
-        nickInput2 = new TextField("Player 2", Config.skin);
-        nickInput1.setPosition(Config.width/3f, Config.height/3f, Align.center);
-        nickInput2.setPosition(2*Config.width/3f, Config.height/3f, Align.center);
-        nickInput1.setMaxLength(15);
-        nickInput2.setMaxLength(15);
-
-        aiCheckbox = new CheckBox("BOT", Config.skin);
-        aiCheckbox.setPosition(Config.halfWidth, Config.height/5f, Align.center);
-
-        difficultySelection = new SelectBox(Config.skin);
-        difficultySelection.setSize(100, 30);
-        difficultySelection.setMaxListCount(3);
-        difficultySelection.setPosition(Config.halfWidth, Config.halfHeight/4, Align.center);
-        difficultySelection.setName("Difficulty");
-        difficultySelection.setItems(AI.Difficulty.values());
-        difficultySelection.setDisabled(true);
-        difficultySelection.setVisible(false);
-
-        game.getStage().addActor(buttonStart);
-        game.getStage().addActor(nickInput1);
-        game.getStage().addActor(nickInput2);
-        game.getStage().addActor(aiCheckbox);
-        game.getStage().addActor(difficultySelection);
+        game.addActor(buttonStart);
+        game.addActor(nickInput1);
+        game.addActor(nickInput2);
+        game.addActor(aiCheckbox);
+        game.addActor(difficultySelection);
     }
 
     public TextField getNickInput1() {
@@ -92,7 +77,7 @@ public class MainMenuScreen implements Screen {
         if(game.getState() != State.MENU) return;
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camera.update();
+        camera.update();  //Necessary?
         game.getBatch().setProjectionMatrix(camera.combined);
         nickInput2.setDisabled(aiCheckbox.isChecked());
         difficultySelection.setDisabled(!aiCheckbox.isChecked());

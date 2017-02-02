@@ -80,6 +80,7 @@ public abstract class Input {
 
             //TODO: Make this work properly on android - Vector3 and translating coordinates using camera,
             //TODO: Change the way to start a round (not touch)
+            // Vector3 touchPos = new Vector3();
             case Android:{
                 switch (game.getState()) {
                     case MENU: {

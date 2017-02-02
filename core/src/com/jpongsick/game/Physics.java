@@ -32,15 +32,22 @@ public abstract class Physics {
         platform2.y += Input.rightP * Platform.speed * Gdx.graphics.getDeltaTime();
     }
 
+//    private static void integrate2(Ball ball) {
+//        ball.x += ball.speed.x * Gdx.graphics.getDeltaTime();
+//        ball.y += ball.speed.y * Gdx.graphics.getDeltaTime();
+//    }
+
     private static void ballWallCollisions(Ball ball) {
         //DOWN, UP
         if (ball.getCenterY() - ball.radius <= 0){
             ball.y = 0;
             ball.speed.y *= -1;
+//            Config.hit.play();
         }
         else if (ball.getCenterY() + ball.radius >= Config.height){
             ball.y = Config.height - 2 * ball.radius;
             ball.speed.y *= -1;
+//            Config.hit.play();
         }
 
         if(ball == ghostBall) return;
@@ -56,20 +63,29 @@ public abstract class Physics {
     //FIXME: platform - ball collisions on screens with height greater than 800
     //FIXME: ball speed too high to properly calculate collisions
     private static void platformBallCollisions(Platform platform) {
-        if (platform.overlaps(ball)){
+        if (platform.overlaps(ball)) {
             Vector2 newVector = new Vector2(ball.getCenterX() - platform.getCenterX(), ball.getCenterY() - platform.getCenterY());
             newVector.y /= 3;
             newVector.setLength(Ball.len);
-
             ball.speed = newVector;
 
-            //for trajectory
-            ghostBall.x = ball.x;
-            ghostBall.y = ball.y;
-            ghostBall.speed.set(ball.speed);
-            Logic.handle(platform == platform1 ? Event.LEFT_PLATFORM_HIT : Event.RIGHT_PLATFORM_HIT);
+
+
+            //TODO: KURWA JAK ZROBIC ZEBY ODBICIE LICZYLO RAZ JEZELI JEST AZ TYLE PRZYPADKOW O.o
+//            while(platform.overlaps(ball)){ // theoretically but not exactly kurwa jego mać
+//                integrate2(ball);
+//            }
+
+//                Config.hit.play();
+
+                //for trajectory
+                ghostBall.x = ball.x;
+                ghostBall.y = ball.y;
+                ghostBall.speed.set(ball.speed);
+                Logic.handle(platform == platform1 ? Event.LEFT_PLATFORM_HIT : Event.RIGHT_PLATFORM_HIT);
+            }
         }
-    }
+
 
 
     private static void platformWallCollisions(Platform platform) {

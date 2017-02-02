@@ -3,11 +3,13 @@ package com.jpongsick.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.jpongsick.game.Entities.AI;
 import com.jpongsick.game.Entities.PlayerManager;
 import com.jpongsick.game.Screens.GameScreen;
 import com.jpongsick.game.Util.Announcer;
+import com.jpongsick.game.Util.UIManager;
 import com.jpongsick.game.Util.State;
 import com.jpongsick.game.Screens.MainMenuScreen;
 
@@ -17,6 +19,7 @@ public class JPongSick extends Game {
 	private MainMenuScreen mainMenuScreen;
 	private GameScreen gameScreen;
 	private State state;
+
 
 	public State getState() {
 		return state;
@@ -45,7 +48,8 @@ public class JPongSick extends Game {
 	@Override
 	public void create () {
 		//Order is important
-		Config.initialize();
+		UIManager.initialize();
+		Gdx.input.setCatchBackKey(true);
 		Input.initialize(this);
 		AI.initialize(this);
 		PlayerManager.initialize();
@@ -71,10 +75,14 @@ public class JPongSick extends Game {
 		stage.draw();
         Input.update();
 	}
+
+	public void addActor(Actor actor){
+		this.stage.addActor(actor);
+	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		Config.dispose();
+		UIManager.dispose();
 	}
 }
