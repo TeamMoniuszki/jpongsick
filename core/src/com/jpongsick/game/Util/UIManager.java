@@ -22,9 +22,6 @@ public abstract class UIManager {
         skin.add("checkBoxOff", new Texture(Gdx.files.internal("checkBoxOff.png")));
         skin.add("checkBoxOn", new Texture(Gdx.files.internal("checkBoxOn.png")));
 
-
-
-
         // TEXT BUTTON STYLE
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.up = skin.newDrawable("red", Color.DARK_GRAY);
@@ -35,7 +32,6 @@ public abstract class UIManager {
 
         // LABEL STYLE
         skin.add("default", new Label.LabelStyle(skin.getFont("default"), Color.WHITE));
-
 
         // TEXT FIELD STYLE
         TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
@@ -55,12 +51,10 @@ public abstract class UIManager {
         checkBoxStyle.checkboxOn = skin.getDrawable("checkBoxOn");
         skin.add("default", checkBoxStyle);
 
-
         // SELECT BOX STYLE
         SelectBox.SelectBoxStyle selectBoxStyle = new SelectBox.SelectBoxStyle(skin.getFont("default"), Color.BLACK,
                 skin.newDrawable("white"), new ScrollPane.ScrollPaneStyle(), new List.ListStyle(skin.getFont("default"),
                 Color.BLACK, Color.LIGHT_GRAY, skin.newDrawable("white", Color.LIGHT_GRAY)));
-
         selectBoxStyle.font = skin.getFont("default");
         selectBoxStyle.background = skin.newDrawable("white");
         skin.add("default", selectBoxStyle);
@@ -88,15 +82,15 @@ public abstract class UIManager {
     }
 
     public static SelectBox createSelectBox(Skin skin, String text, float width, float height, int maxListCount, float x,
-                                            float y, int align, Object[] items, boolean disabled, boolean visible){
+                                            float y, int align, Object[] items, boolean isDisabled, boolean isVisible){
         SelectBox selectBox = new SelectBox(skin);
         selectBox.setName(text);
         selectBox.setSize(width, height);
         selectBox.setMaxListCount(maxListCount);
         selectBox.setPosition(x, y, align);
         selectBox.setItems(items);
-        selectBox.setDisabled(disabled);
-        selectBox.setVisible(visible);
+        selectBox.setDisabled(isDisabled);
+        selectBox.setVisible(isVisible);
         return selectBox;
     }
 

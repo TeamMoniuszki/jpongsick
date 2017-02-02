@@ -13,7 +13,7 @@ public abstract class Input {
     private static JPongSick game;
     public static int leftP;
     public static int rightP;
-    public static Vector3 touch = new Vector3();
+//    public static Vector3 touch = new Vector3();
     public static void initialize(JPongSick g){
         if (isInitialized) return;
         leftP = 0;
@@ -80,7 +80,7 @@ public abstract class Input {
 
             //TODO: Make this work properly on android - Vector3 and translating coordinates using camera,
             //TODO: Change the way to start a round (not touch)
-            // Vector3 touchPos = new Vector3();
+
             case Android:{
                 switch (game.getState()) {
                     case MENU: {
@@ -89,6 +89,9 @@ public abstract class Input {
 
                     case PLAYING: {
                         if (Gdx.input.isTouched()) {
+//                            touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+//                            game.getGameScreen().getCamera().unproject(touch);
+//                            System.out.println(touch.toString());
                             if ((Gdx.input.getY() < Config.halfHeight) && (Gdx.input.getX() < Config.halfWidth))
                                 leftP = 1;
                             else if ((Gdx.input.getY() > Config.halfHeight) && (Gdx.input.getX() < Config.halfWidth))

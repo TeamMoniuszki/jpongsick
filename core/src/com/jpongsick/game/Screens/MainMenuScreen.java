@@ -35,6 +35,7 @@ public class MainMenuScreen implements Screen {
         aiCheckbox = UIManager.createCheckBox("BOT", UIManager.skin, Config.halfWidth, Config.height/5f, Align.center);
         difficultySelection = UIManager.createSelectBox(UIManager.skin, "Difficulty", Config.width/8, Config.height/20, 3, Config.halfWidth, Config.halfHeight/4, Align.center, AI.Difficulty.values(), true, false);
 
+
         game.addActor(buttonStart);
         game.addActor(nickInput1);
         game.addActor(nickInput2);
