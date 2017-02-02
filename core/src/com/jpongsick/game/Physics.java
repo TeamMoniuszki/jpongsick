@@ -32,7 +32,6 @@ public abstract class Physics {
         platform2.y += Input.rightP * Platform.speed * Gdx.graphics.getDeltaTime();
     }
 
-
     private static void ballWallCollisions(Ball ball) {
         //DOWN, UP
         if (ball.getCenterY() - ball.radius <= 0){

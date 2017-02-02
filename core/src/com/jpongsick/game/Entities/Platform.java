@@ -9,7 +9,7 @@ import com.jpongsick.game.Config;
 
 
 public class Platform extends Rectangle{
-    public static int speed = 400;
+    public static int speed = (int)Config.halfWidth;
     public Pixmap pixmap;
     public Texture texture;
 

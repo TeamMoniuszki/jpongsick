@@ -24,8 +24,9 @@ public class GameScreen implements Screen {
         this.game = game;
         this.isVisible = isVisible;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, Config.width, Config.height);
 
+        camera.setToOrtho(false, Config.width, Config.height);
+        camera.update();
         this.ball = new Ball(0, 0, 15);
         this.ball.setCenter(Config.halfWidth, Config.halfHeight);
 
@@ -68,6 +69,14 @@ public class GameScreen implements Screen {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
+    }
+
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
     }
 
     public void draw() {

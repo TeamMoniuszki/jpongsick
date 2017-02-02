@@ -37,6 +37,14 @@ public abstract class AI {
         isInitialized = true;
     }
 
+    public static Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public static void setDifficulty(Difficulty difficulty) {
+        AI.difficulty = difficulty;
+    }
+
     public static int getMovement() {
         if(!isInitialized) return 2;
 
@@ -53,7 +61,13 @@ public abstract class AI {
                 break;
             }
             case MEDIUM: {
-
+                if(game.getGameScreen().getBall().getCenterY() > game.getGameScreen().getPlayer2().getPlatform().getCenterY()){
+                    movement = 1;
+                }
+                else if (game.getGameScreen().getBall().getCenterY() < game.getGameScreen().getPlayer2().getPlatform().getCenterY()){
+                    movement = -1;
+                }
+                else movement = 0;
                 break;
             }
             case HARD: {

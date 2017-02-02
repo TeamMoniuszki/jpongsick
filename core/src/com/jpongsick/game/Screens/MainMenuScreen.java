@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.jpongsick.game.*;
+import com.jpongsick.game.Entities.AI;
 import com.jpongsick.game.Util.State;
 
 
@@ -18,6 +19,7 @@ public class MainMenuScreen implements Screen {
     private TextField nickInput1;
     private TextField nickInput2;
     private CheckBox aiCheckbox;
+    private SelectBox difficultySelection;
 
     public MainMenuScreen(final JPongSick game, boolean isVisible) {
         this.game = game;
@@ -39,10 +41,20 @@ public class MainMenuScreen implements Screen {
         aiCheckbox = new CheckBox("BOT", Config.skin);
         aiCheckbox.setPosition(Config.halfWidth, Config.height/5f, Align.center);
 
+        difficultySelection = new SelectBox(Config.skin);
+        difficultySelection.setSize(100, 30);
+        difficultySelection.setMaxListCount(3);
+        difficultySelection.setPosition(Config.halfWidth, Config.halfHeight/4, Align.center);
+        difficultySelection.setName("Difficulty");
+        difficultySelection.setItems(AI.Difficulty.values());
+        difficultySelection.setDisabled(true);
+        difficultySelection.setVisible(false);
+
         game.getStage().addActor(buttonStart);
         game.getStage().addActor(nickInput1);
         game.getStage().addActor(nickInput2);
         game.getStage().addActor(aiCheckbox);
+        game.getStage().addActor(difficultySelection);
     }
 
     public TextField getNickInput1() {
@@ -82,17 +94,17 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
+        nickInput2.setDisabled(aiCheckbox.isChecked());
+        difficultySelection.setDisabled(!aiCheckbox.isChecked());
+        difficultySelection.setVisible(aiCheckbox.isChecked());
 
-        if(aiCheckbox.isChecked()){
-            nickInput2.setDisabled(true);
-        }
-        else {
-            nickInput2.setDisabled(false);
-        }
         this.draw();
 
         if (buttonStart.isPressed()) {
             Logic.isAIGame = aiCheckbox.isChecked();
+            if(difficultySelection.getSelected()!=null){
+                AI.setDifficulty((AI.Difficulty)difficultySelection.getSelected());
+            }
             Logic.handle(Logic.Event.NEW_GAME);
         }
 
@@ -108,6 +120,7 @@ public class MainMenuScreen implements Screen {
         nickInput1.setVisible(true);
         nickInput2.setVisible(true);
         aiCheckbox.setVisible(true);
+        difficultySelection.setVisible(aiCheckbox.isChecked());
     }
 
     @Override
@@ -117,6 +130,7 @@ public class MainMenuScreen implements Screen {
         nickInput1.setVisible(false);
         nickInput2.setVisible(false);
         aiCheckbox.setVisible(false);
+        difficultySelection.setVisible(false);
     }
 
     @Override

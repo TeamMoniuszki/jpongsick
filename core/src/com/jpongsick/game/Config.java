@@ -1,16 +1,14 @@
 package com.jpongsick.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+
+import static com.badlogic.gdx.Gdx.app;
 
 
 public abstract class Config{
@@ -20,13 +18,14 @@ public abstract class Config{
     public static float halfWidth = width / 2f;
     public static float halfHeight = height / 2f;
     public static int maxGoals = 9;
-
+    public static Application.ApplicationType applicationType;
     public static Skin skin = new Skin();
 
     public static void initialize(){
         if (isInitialized) return;
 
-
+        applicationType = Gdx.app.getType();
+        Gdx.input.setCatchBackKey(true);
         skin.add("default", new BitmapFont());
 
         Pixmap pixmap = new Pixmap(150, 50, Pixmap.Format.RGBA8888);
@@ -53,7 +52,7 @@ public abstract class Config{
         skin.add("checkBoxOff", new Texture(pixmap));
         pixmap.setColor(Color.BLACK);
         pixmap.fill();
-        skin.add("checkBoxOn", new Texture(pixmap));
+        skin.add("checkBoxOn", new Texture(Gdx.files.internal("cross.png")));
         pixmap.dispose();
 
 
@@ -83,6 +82,15 @@ public abstract class Config{
         checkBoxStyle.checkboxOff = skin.getDrawable("checkBoxOff");
         checkBoxStyle.checkboxOn = skin.getDrawable("checkBoxOn");
         skin.add("default", checkBoxStyle);
+
+
+        SelectBox.SelectBoxStyle selectBoxStyle = new SelectBox.SelectBoxStyle(skin.getFont("default"), Color.BLACK,
+                skin.newDrawable("white"), new ScrollPane.ScrollPaneStyle(), new List.ListStyle(skin.getFont("default"),
+                Color.BLACK, Color.LIGHT_GRAY, skin.newDrawable("white", Color.LIGHT_GRAY)));
+
+        selectBoxStyle.font = skin.getFont("default");
+        selectBoxStyle.background = skin.newDrawable("white");
+        skin.add("default", selectBoxStyle);
 
 
 

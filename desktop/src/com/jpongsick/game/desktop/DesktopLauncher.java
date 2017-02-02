@@ -3,6 +3,7 @@ package com.jpongsick.game.desktop;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.jpongsick.game.Config;
 import com.jpongsick.game.JPongSick;
 
