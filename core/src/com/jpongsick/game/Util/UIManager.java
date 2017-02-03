@@ -25,9 +25,9 @@ public abstract class UIManager {
 
         // TEXT BUTTON STYLE
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.newDrawable("red", Color.DARK_GRAY);
-        textButtonStyle.down = skin.newDrawable("red", Color.DARK_GRAY);
-        textButtonStyle.over = skin.newDrawable("red", Color.LIGHT_GRAY);
+        textButtonStyle.up = skin.newDrawable("white", 1, 1, 1 ,0);
+        textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
+        textButtonStyle.over = skin.newDrawable("white", Color.DARK_GRAY);
         textButtonStyle.font = skin.getFont("default");
         skin.add("default", textButtonStyle);
 
