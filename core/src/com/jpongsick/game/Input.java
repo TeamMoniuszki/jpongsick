@@ -111,31 +111,42 @@ public abstract class Input {
             case Android:{
                 switch (game.getState()) {
                     case MENU: {
+                        leftP = AI.getMovement2();
+                        rightP = AI.getMovement();
                         break;
                     }
 
                     case PLAYING: {
-                        if (Gdx.input.isTouched()) {
-//                            touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-//                            game.getGameScreen().getCamera().unproject(touch);
-//                            System.out.println(touch.toString());
-                            if ((Gdx.input.getY() < Config.halfHeight) && (Gdx.input.getX() < Config.halfWidth))
-                                leftP = 1;
-                            else if ((Gdx.input.getY() > Config.halfHeight) && (Gdx.input.getX() < Config.halfWidth))
-                                leftP = -1;
-                        }
-                        else leftP = 0;
+                        if(Logic.isAIGame){
+                            switch (AI.difficulty) {
+                                case EASY: {
+                                    updateLP();
+                                    rightP = AI.getMovement();
+                                    break;
+                                }
 
-                        if(Logic.isAIGame) {
-                            rightP = AI.getMovement();
+                                case MEDIUM: {
+                                    updateLP();
+                                    rightP = AI.getMovement();
+                                    break;
+                                }
+
+                                case HARD: {
+                                    updateLP();
+                                    rightP = AI.getMovement();
+                                    break;
+                                }
+
+                                case SHOWOFF: {
+                                    leftP = AI.getMovement2();
+                                    rightP = AI.getMovement();
+                                    break;
+                                }
+                            }
                         }
                         else {
-                            if (Gdx.input.isTouched()) {
-                                if ((Gdx.input.getY() < Config.halfHeight) && (Gdx.input.getX() > Config.halfWidth))
-                                    rightP = 1;
-                                else if ((Gdx.input.getY() > Config.halfHeight) && (Gdx.input.getX() > Config.halfWidth))
-                                    rightP = -1;
-                            } else rightP = 0;
+                            updateLP();
+                            updateRP();
                         }
 
                         if (Gdx.input.isKeyPressed(Keys.BACK)) {
@@ -171,6 +182,25 @@ public abstract class Input {
                 break;
             }
         }
+    }
+
+    public static void updateLP(){
+        if (Gdx.input.isTouched()) {
+            if ((Gdx.input.getY() < Config.halfHeight) && (Gdx.input.getX() < Config.halfWidth))
+                leftP = 1;
+            else if ((Gdx.input.getY() > Config.halfHeight) && (Gdx.input.getX() < Config.halfWidth))
+                leftP = -1;
+        }
+        else leftP = 0;
+    }
+
+    public static void updateRP(){
+        if (Gdx.input.isTouched()) {
+            if ((Gdx.input.getY() < Config.halfHeight) && (Gdx.input.getX() > Config.halfWidth))
+                rightP = 1;
+            else if ((Gdx.input.getY() > Config.halfHeight) && (Gdx.input.getX() > Config.halfWidth))
+                rightP = -1;
+        } else rightP = 0;
     }
 
 }
