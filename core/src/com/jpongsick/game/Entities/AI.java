@@ -12,9 +12,10 @@ public abstract class AI {
     private static JPongSick game;
     private static String[] names;
     private static int movement;
+    private static int movement2;
     public static Difficulty difficulty;
     public enum Difficulty {
-        EASY, MEDIUM, HARD
+        EASY, MEDIUM, HARD, SHOWOFF
     }
 
 
@@ -22,7 +23,8 @@ public abstract class AI {
         if(isInitialized) return;
         game = g;
         movement = 0;
-        difficulty = Difficulty.HARD;
+        movement2 = 0;
+        difficulty = Difficulty.SHOWOFF;
         names = new String[]
                 {"Albert", "Allen", "Bert", "Bob", "Cecil",
                 "Clarence", "Elliot", "Elmer", "Ernie",
@@ -81,9 +83,34 @@ public abstract class AI {
 
                 break;
             }
+
+            case SHOWOFF:{
+
+                if(Physics.ghostBall.getCenterY() - game.getGameScreen().getPlayer2().getPlatform().getCenterY() > 15){
+                    movement = 1;
+                }
+                else if (Physics.ghostBall.getCenterY() - game.getGameScreen().getPlayer2().getPlatform().getCenterY() < -15){
+                    movement = -1;
+                }
+                else movement = 0;
+
+                break;
+            }
         }
 
         return movement;
+    }
+
+    public static int getMovement2(){
+        if(Physics.ghostBall2.getCenterY() - game.getGameScreen().getPlayer1().getPlatform().getCenterY() > 15){
+            movement2 = 1;
+        }
+        else if (Physics.ghostBall2.getCenterY() - game.getGameScreen().getPlayer1().getPlatform().getCenterY() < -15){
+            movement2 = -1;
+        }
+        else movement2 = 0;
+
+        return movement2;
     }
 
     public static void handleEvent(Logic.Event e) {
@@ -92,12 +119,18 @@ public abstract class AI {
                 while((Physics.ghostBall.getCenterX() + Physics.ghostBall.radius) <
                         (PlayerManager.getPlayers().get(1).getPlatform().getCenterX() - PlayerManager.getPlayers().get(1).getPlatform().getWidth()/2)){
                     if(Physics.ghostBall.speed.x <= 0) break;
-                    Physics.calculateTrajectory();
+                    Physics.calculateTrajectory(Physics.ghostBall);
                 }
+                Physics.ghostBall2.resetPos();
 
                 break;
             }
             case RIGHT_PLATFORM_HIT: {
+                while((Physics.ghostBall2.getCenterX() - Physics.ghostBall2.radius) >
+                        (PlayerManager.getPlayers().get(0).getPlatform().getCenterX() - PlayerManager.getPlayers().get(0).getPlatform().getWidth()/2)){
+                    if(Physics.ghostBall2.speed.x >= 0) break;
+                    Physics.calculateTrajectory(Physics.ghostBall2);
+                }
                 Physics.ghostBall.resetPos();
                 break;
             }

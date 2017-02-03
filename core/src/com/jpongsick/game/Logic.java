@@ -70,6 +70,8 @@ public abstract class Logic {
 
     private static void newGame() {
         game.getGameScreen().getBall().resetPos();
+        Physics.ghostBall.resetPos();
+        Physics.ghostBall2.resetPos();
         PlayerManager.restartPlayers();
         game.getMainMenuScreen().hide();
         game.getGameScreen().show();
@@ -86,10 +88,7 @@ public abstract class Logic {
         } else {
             game.setState(State.ROUND_OVER);
             Announcer.setText(player.getNickname().toUpperCase() + " SCORED, PRESS SPACE TO CONTINUE");
-            game.getGameScreen().getBall().resetPos();
-            Physics.ghostBall.resetPos();
-            PlayerManager.getPlayers().get(0).getPlatform().resetPos();
-            PlayerManager.getPlayers().get(1).getPlatform().resetPos();
+            Physics.resetPhysics();
         }
         Announcer.showLabel();
     }

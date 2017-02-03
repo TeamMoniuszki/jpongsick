@@ -35,14 +35,41 @@ public abstract class Input {
                             Logic.isAIGame = game.getMainMenuScreen().getAiCheckbox().isChecked();
                             Logic.handle(Logic.Event.NEW_GAME);
                         }
+                        leftP = AI.getMovement2();
+                        rightP = AI.getMovement();
                         break;
                     }
 
                     case PLAYING: {
-                        leftP = Gdx.input.isKeyPressed(Keys.W) ? 1 : Gdx.input.isKeyPressed(Keys.S) ? -1 : 0;
-                        if (Logic.isAIGame) {
-                            rightP = AI.getMovement();
-                        } else {
+                        if(Logic.isAIGame){
+                            switch (AI.difficulty) {
+                                case EASY: {
+                                    leftP = Gdx.input.isKeyPressed(Keys.W) ? 1 : Gdx.input.isKeyPressed(Keys.S) ? -1 : 0;
+                                    rightP = AI.getMovement();
+                                    break;
+                                }
+
+                                case MEDIUM: {
+                                    leftP = Gdx.input.isKeyPressed(Keys.W) ? 1 : Gdx.input.isKeyPressed(Keys.S) ? -1 : 0;
+                                    rightP = AI.getMovement();
+                                    break;
+                                }
+
+                                case HARD: {
+                                    leftP = Gdx.input.isKeyPressed(Keys.W) ? 1 : Gdx.input.isKeyPressed(Keys.S) ? -1 : 0;
+                                    rightP = AI.getMovement();
+                                    break;
+                                }
+
+                                case SHOWOFF: {
+                                    leftP = AI.getMovement2();
+                                    rightP = AI.getMovement();
+                                    break;
+                                }
+                            }
+                        }
+                        else {
+                            leftP = Gdx.input.isKeyPressed(Keys.W) ? 1 : Gdx.input.isKeyPressed(Keys.S) ? -1 : 0;
                             rightP = Gdx.input.isKeyPressed(Keys.UP) ? 1 : Gdx.input.isKeyPressed(Keys.DOWN) ? -1 : 0;
                         }
 

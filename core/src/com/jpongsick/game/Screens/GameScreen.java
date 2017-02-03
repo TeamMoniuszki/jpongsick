@@ -128,6 +128,7 @@ public class GameScreen implements Screen {
         this.isVisible = false;
         this.player1.getLabel().setVisible(false);
         this.player2.getLabel().setVisible(false);
+        Physics.resetPhysics();
     }
 
     @Override

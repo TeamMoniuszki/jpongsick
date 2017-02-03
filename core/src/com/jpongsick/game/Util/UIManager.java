@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 public abstract class UIManager {
     private static boolean isInitialized = false;
     public static Skin skin = new Skin();
+    public static Texture logo;
 
     public static void initialize() {
         if(isInitialized) return;
@@ -58,6 +59,8 @@ public abstract class UIManager {
         selectBoxStyle.font = skin.getFont("default");
         selectBoxStyle.background = skin.newDrawable("white");
         skin.add("default", selectBoxStyle);
+        logo = new Texture(Gdx.files.internal("logo.png"));
+
     }
 
     public static TextButton createTextButton(String text, Skin skin, float width, float height, float x, float y, int align){

@@ -10,6 +10,7 @@ import com.jpongsick.game.Logic.Event;
 public abstract class Physics {
     private static Ball ball;
     public static Ball ghostBall;
+    public static Ball ghostBall2;
     private static Platform platform1;
     private static Platform platform2;
     private static JPongSick game;
@@ -17,6 +18,7 @@ public abstract class Physics {
     public static void initialize(Ball b, Platform p1, Platform p2, JPongSick g) {
         ball = b;
         ghostBall=  new Ball(0, 0, ball.radius);
+        ghostBall2=  new Ball(0, 0, ball.radius);
         platform1 = p1;
         platform2 = p2;
         game = g;
@@ -26,16 +28,12 @@ public abstract class Physics {
         ball.x += ball.speed.x * Gdx.graphics.getDeltaTime();
         ball.y += ball.speed.y * Gdx.graphics.getDeltaTime();
 
-        if(ball == ghostBall) return;
+        if(ball == ghostBall || ball == ghostBall2) return;
 
         platform1.y += Input.leftP * Platform.speed * Gdx.graphics.getDeltaTime();
         platform2.y += Input.rightP * Platform.speed * Gdx.graphics.getDeltaTime();
     }
 
-//    private static void integrate2(Ball ball) {
-//        ball.x += ball.speed.x * Gdx.graphics.getDeltaTime();
-//        ball.y += ball.speed.y * Gdx.graphics.getDeltaTime();
-//    }
 
     private static void ballWallCollisions(Ball ball) {
         //DOWN, UP
@@ -81,7 +79,10 @@ public abstract class Physics {
                 //for trajectory
                 ghostBall.x = ball.x;
                 ghostBall.y = ball.y;
+                ghostBall2.x = ball.x;
+                ghostBall2.y = ball.y;
                 ghostBall.speed.set(ball.speed);
+                ghostBall2.speed.set(ball.speed);
                 Logic.handle(platform == platform1 ? Event.LEFT_PLATFORM_HIT : Event.RIGHT_PLATFORM_HIT);
             }
         }
@@ -105,15 +106,24 @@ public abstract class Physics {
         platformWallCollisions(platform2);
     }
 
-    public static void calculateTrajectory() {
-        integrate(ghostBall);
-        ballWallCollisions(ghostBall);
+    public static void calculateTrajectory(Ball ball) {
+        integrate(ball);
+        ballWallCollisions(ball);
     }
+
 
     public static void update() {
         integrate(ball);
         checkCollisions();
     }
 
+
+    public static void resetPhysics(){
+        ball.resetPos();
+        ghostBall.resetPos();
+        ghostBall2.resetPos();
+        platform1.resetPos();
+        platform2.resetPos();
+    }
 
 }

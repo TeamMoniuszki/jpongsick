@@ -69,7 +69,10 @@ public class MainMenuScreen implements Screen {
 
     public void draw() {
         game.getBatch().begin();
-
+        game.getBatch().draw(UIManager.logo, Config.halfWidth - UIManager.logo.getWidth()/2, 5*Config.height/6 - UIManager.logo.getHeight()/2);
+        game.getBatch().draw(game.getGameScreen().getBall().texture, game.getGameScreen().getBall().x, game.getGameScreen().getBall().y);
+        game.getBatch().draw(game.getGameScreen().getPlayer1().getPlatform().texture, game.getGameScreen().getPlayer1().getPlatform().x, game.getGameScreen().getPlayer1().getPlatform().y);
+        game.getBatch().draw(game.getGameScreen().getPlayer2().getPlatform().texture, game.getGameScreen().getPlayer2().getPlatform().x, game.getGameScreen().getPlayer2().getPlatform().y);
         game.getBatch().end();
     }
 
@@ -84,13 +87,18 @@ public class MainMenuScreen implements Screen {
         difficultySelection.setDisabled(!aiCheckbox.isChecked());
         difficultySelection.setVisible(aiCheckbox.isChecked());
 
+
+        Physics.update();
+
+
+
+
         this.draw();
 
         if (buttonStart.isPressed()) {
             Logic.isAIGame = aiCheckbox.isChecked();
-            if(difficultySelection.getSelected()!=null){
-                AI.setDifficulty((AI.Difficulty)difficultySelection.getSelected());
-            }
+            AI.setDifficulty((AI.Difficulty)difficultySelection.getSelected());
+
             Logic.handle(Logic.Event.NEW_GAME);
         }
 
@@ -106,6 +114,7 @@ public class MainMenuScreen implements Screen {
         nickInput1.setVisible(true);
         nickInput2.setVisible(true);
         aiCheckbox.setVisible(true);
+        AI.difficulty = AI.Difficulty.SHOWOFF;
         difficultySelection.setVisible(aiCheckbox.isChecked());
     }
 
