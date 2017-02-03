@@ -2,6 +2,7 @@ package com.jpongsick.game.Util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -13,6 +14,7 @@ public abstract class UIManager {
     private static boolean isInitialized = false;
     public static Skin skin = new Skin();
     public static Texture logo;
+    public static Pixmap ball;
 
     public static void initialize() {
         if(isInitialized) return;
@@ -60,6 +62,7 @@ public abstract class UIManager {
         selectBoxStyle.background = skin.newDrawable("white");
         skin.add("default", selectBoxStyle);
         logo = new Texture(Gdx.files.internal("logo.png"));
+        ball = new Pixmap(Gdx.files.internal("ball.png"));
 
     }
 

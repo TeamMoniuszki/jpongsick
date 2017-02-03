@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.jpongsick.game.Config;
+import com.jpongsick.game.Util.UIManager;
 
 
 public class Ball extends Circle {
@@ -20,9 +21,12 @@ public class Ball extends Circle {
         super(x, y, radius);
         speed = new Vector2(1,1);
         resetPos();
-        pixmap = new Pixmap((int) radius * 2 + 1, (int) radius * 2 + 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.fillCircle((int) radius, (int) radius, (int) radius);
+
+        pixmap = new Pixmap((int) radius * 2 + 1, (int) radius * 2 + 1 , UIManager.ball.getFormat() /*Pixmap.Format.RGBA8888*/);
+        pixmap.drawPixmap(UIManager.ball, 0, 0, UIManager.ball.getWidth(), UIManager.ball.getHeight(), 0, 0, pixmap.getWidth(), pixmap.getHeight() //FIXME: I DON'T KNOW HOW TO WORK OUT THE VALUES CORRECTLY
+        );
+        /*pixmap.setColor(Color.WHITE);
+        pixmap.fillCircle((int) radius, (int) radius, (int) radius);*/
         texture = new Texture(pixmap);
     }
 
