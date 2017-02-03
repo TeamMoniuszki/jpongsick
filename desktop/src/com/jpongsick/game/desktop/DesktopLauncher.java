@@ -12,6 +12,10 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "JPongSICK";
 		config.addIcon("JPongSICK_icon.png", Files.FileType.Internal);
+		config.addIcon("128x128.png", Files.FileType.Internal);
+		config.addIcon("64x64.png", Files.FileType.Internal);
+		config.addIcon("32x32.png", Files.FileType.Internal);
+		config.addIcon("16x16.png", Files.FileType.Internal);
 
 		config.width = 800;
 		config.height = 600;
