@@ -21,6 +21,8 @@ public class GameScreen implements Screen {
     private Player player1;
     private Player player2;
 
+    private Player hitPlatformLast;
+
     public GameScreen(final JPongSick game,  boolean isVisible) {
         this.game = game;
         this.isVisible = isVisible;
@@ -31,8 +33,8 @@ public class GameScreen implements Screen {
         this.ball = new Ball(0, 0, 15);
         this.ball.setCenter(Config.halfWidth, Config.halfHeight);
 
-        this.player1 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Player1");
-        this.player2 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Player2");
+        this.player1 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Player1", AI.Difficulty.HARD);
+        this.player2 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Player2", AI.Difficulty.HARD);
         this.player1.getPlatform().setCenter(25, Config.halfHeight);
         this.player2.getPlatform().setCenter(Config.width - 25, Config.halfHeight);
 
@@ -44,7 +46,7 @@ public class GameScreen implements Screen {
         game.addActor(this.player1.getLabel());
         game.addActor(this.player2.getLabel());
 
-        Physics.initialize(this.ball, this.player1.getPlatform(), this.player2.getPlatform(), game);
+        Physics.initialize(this.ball, this.player1, this.player2, game);
     }
 
 
@@ -70,6 +72,14 @@ public class GameScreen implements Screen {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
+    }
+
+    public Player getHitPlatformLast() {
+        return hitPlatformLast;
+    }
+
+    public void setHitPlatformLast(Player hitPlatformLast) {
+        this.hitPlatformLast = hitPlatformLast;
     }
 
     public OrthographicCamera getCamera() {

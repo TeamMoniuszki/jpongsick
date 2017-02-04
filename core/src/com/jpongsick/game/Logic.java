@@ -7,6 +7,10 @@ import com.jpongsick.game.Entities.PlayerManager;
 import com.jpongsick.game.Util.Announcer;
 import com.jpongsick.game.Util.State;
 
+import static com.jpongsick.game.Entities.AI.Difficulty.HARD;
+import static com.jpongsick.game.Entities.AI.Difficulty.PLAYER;
+import static com.jpongsick.game.Entities.AI.Difficulty.SHOWOFF;
+
 public abstract class Logic {
     private static boolean isInitialized = false;
     private static JPongSick game;
@@ -69,9 +73,9 @@ public abstract class Logic {
     }
 
     private static void newGame() {
+        setPlayersAiType();
         game.getGameScreen().getBall().resetPos();
         Physics.ghostBall.resetPos();
-        Physics.ghostBall2.resetPos();
         PlayerManager.restartPlayers();
         game.getMainMenuScreen().hide();
         game.getGameScreen().show();
@@ -98,7 +102,31 @@ public abstract class Logic {
         Announcer.hideLabel();
     }
 
+    private static void setPlayersAiType(){
+        if(!game.getMainMenuScreen().getAiCheckbox().isChecked()){
+            game.getGameScreen().getPlayer1().setAiType(PLAYER);
+            game.getGameScreen().getPlayer2().setAiType(PLAYER);
+        }
+        else {
+            switch ((AI.Difficulty)game.getMainMenuScreen().getDifficultySelection().getSelected()){
+                case SHOWOFF:{
+                    game.getGameScreen().getPlayer1().setAiType(HARD);
+                    game.getGameScreen().getPlayer2().setAiType(HARD);
+                    break;
+                }
+                default: {
+                    game.getGameScreen().getPlayer1().setAiType(PLAYER);
+                    game.getGameScreen().getPlayer2().setAiType((AI.Difficulty)game.getMainMenuScreen().getDifficultySelection().getSelected());
+                    break;
+                }
+            }
+        }
+
+    }
+
     private static void exitToMenu() {
+        game.getGameScreen().getPlayer1().setAiType(HARD);
+        game.getGameScreen().getPlayer2().setAiType(HARD);
         Announcer.hideLabel();
         game.getGameScreen().hide();
         game.getMainMenuScreen().show();

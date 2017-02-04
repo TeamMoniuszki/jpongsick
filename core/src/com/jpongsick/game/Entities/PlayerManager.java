@@ -17,13 +17,18 @@ public abstract class PlayerManager {
         return players;
     }
 
-    public static Player createPlayer(Platform platform, Score score, String nickname){
+    public static Player createPlayer(Platform platform, Score score, String nickname, AI.Difficulty difficulty){
         if (!isInitialized) return null;
-        Player player = Player.createPlayer(platform, score, nickname);
+        Player player = Player.createPlayer(platform, score, nickname, difficulty);
         players.add(player);
         return player;
     }
 
+    public static void updateMovement(){
+        for (Player player: PlayerManager.getPlayers()) {
+            player.updateMovement();
+        }
+    }
     public static void restartPlayers() {
         for (Player player: players) {
             player.restart();

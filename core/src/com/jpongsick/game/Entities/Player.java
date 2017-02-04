@@ -2,6 +2,7 @@ package com.jpongsick.game.Entities;
 
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.jpongsick.game.Input;
 import com.jpongsick.game.Util.UIManager;
 
 public class Player {
@@ -9,19 +10,24 @@ public class Player {
     private Score score;
     private String nickname;
     private Label label;
+    private AI.Difficulty aiType;
+
+    private int movement;
 
     /*------------------------------CONSTRUCTORS-------------------------*/
 
-    public Player(Platform platform, Score score, String nickname){
+    public Player(Platform platform, Score score, String nickname, AI.Difficulty difficulty){
         this.platform = platform;
         this.score = score;
         this.nickname = nickname;
-
+        this.movement = 0;
         this.label = new Label(nickname.toUpperCase() + ": " + score.getPoints(), UIManager.skin);
+        this.aiType = difficulty;
+
     }
 
-    public static Player createPlayer(Platform platform, Score score, String nickname){
-        return new Player(platform, score, nickname);
+    public static Player createPlayer(Platform platform, Score score, String nickname, AI.Difficulty difficulty){
+        return new Player(platform, score, nickname, difficulty);
     }
 
     /*------------------------------GETTERS, SETTERS------------------------------*/
@@ -58,6 +64,21 @@ public class Player {
         this.label = label;
     }
 
+    public AI.Difficulty getAiType() {
+        return aiType;
+    }
+
+    public void setAiType(AI.Difficulty aiType) {
+        this.aiType = aiType;
+    }
+
+    public int getMovement() {
+        return movement;
+    }
+
+    public void setMovement(int movement) {
+        this.movement = movement;
+    }
 
     /*------------------------------PUBLIC-------------------------------*/
 
@@ -69,6 +90,18 @@ public class Player {
     public void restart() {
         platform.resetPos();
         score.setPoints(0);
+    }
+
+    public void updateMovement(){
+        switch(aiType){
+            case PLAYER:{
+                movement = Input.getMovement(this);
+                break;
+            }
+            default: {
+                movement = AI.getMovement(this);
+            }
+        }
     }
 
 }

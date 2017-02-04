@@ -4,23 +4,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.jpongsick.game.Entities.Ball;
 import com.jpongsick.game.Entities.Platform;
+import com.jpongsick.game.Entities.Player;
 import com.jpongsick.game.Entities.PlayerManager;
 import com.jpongsick.game.Logic.Event;
+import com.jpongsick.game.Util.State;
 
 public abstract class Physics {
     private static Ball ball;
     public static Ball ghostBall;
-    public static Ball ghostBall2;
-    private static Platform platform1;
-    private static Platform platform2;
+    private static Player player1;
+    private static Player player2;
     private static JPongSick game;
 
-    public static void initialize(Ball b, Platform p1, Platform p2, JPongSick g) {
+    public static void initialize(Ball b, Player p1, Player p2, JPongSick g) {
         ball = b;
         ghostBall=  new Ball(0, 0, ball.radius);
-        ghostBall2=  new Ball(0, 0, ball.radius);
-        platform1 = p1;
-        platform2 = p2;
+        player1 = p1;
+        player2 = p2;
         game = g;
     }
 
@@ -28,10 +28,10 @@ public abstract class Physics {
         ball.x += ball.speed.x * Gdx.graphics.getDeltaTime();
         ball.y += ball.speed.y * Gdx.graphics.getDeltaTime();
 
-        if(ball == ghostBall || ball == ghostBall2) return;
+        if(ball == ghostBall) return;
 
-        platform1.y += Input.leftP * Platform.speed * Gdx.graphics.getDeltaTime();
-        platform2.y += Input.rightP * Platform.speed * Gdx.graphics.getDeltaTime();
+        player1.getPlatform().y += player1.getMovement() * Platform.speed * Gdx.graphics.getDeltaTime();
+        player2.getPlatform().y += player2.getMovement() * Platform.speed * Gdx.graphics.getDeltaTime();
     }
 
 
@@ -52,8 +52,16 @@ public abstract class Physics {
 
         //LEFT, RIGHT
         if(ball.x <= 0) {
+            if(game.getState()== State.MENU){
+                Physics.resetPhysics();
+                return;
+            }
             Logic.handle(Event.RIGHT_PLAYER_SCORED);
         } else if (ball.x + ball.radius*2 >= Config.width) {
+            if(game.getState()== State.MENU){
+                Physics.resetPhysics();
+                return;
+            }
             Logic.handle(Event.LEFT_PLAYER_SCORED);
         }
     }
@@ -69,7 +77,7 @@ public abstract class Physics {
 
 
 
-            //TODO: KURWA JAK ZROBIC ZEBY ODBICIE LICZYLO RAZ JEZELI JEST AZ TYLE PRZYPADKOW O.o
+            //TODO: HOW TO MAKE IT WORK IF THERE ARE SO MANY POSSIBILITIES
 //            while(platform.overlaps(ball)){ // theoretically but not exactly kurwa jego mać
 //                integrate2(ball);
 //            }
@@ -79,11 +87,8 @@ public abstract class Physics {
                 //for trajectory
                 ghostBall.x = ball.x;
                 ghostBall.y = ball.y;
-                ghostBall2.x = ball.x;
-                ghostBall2.y = ball.y;
                 ghostBall.speed.set(ball.speed);
-                ghostBall2.speed.set(ball.speed);
-                Logic.handle(platform == platform1 ? Event.LEFT_PLATFORM_HIT : Event.RIGHT_PLATFORM_HIT);
+                Logic.handle(platform == player1.getPlatform() ? Event.LEFT_PLATFORM_HIT : Event.RIGHT_PLATFORM_HIT);
             }
         }
 
@@ -100,10 +105,10 @@ public abstract class Physics {
 
     private static void checkCollisions() {
         ballWallCollisions(ball);
-        platformBallCollisions(platform1);
-        platformBallCollisions(platform2);
-        platformWallCollisions(platform1);
-        platformWallCollisions(platform2);
+        platformBallCollisions(player1.getPlatform());
+        platformBallCollisions(player2.getPlatform());
+        platformWallCollisions(player1.getPlatform());
+        platformWallCollisions(player2.getPlatform());
     }
 
     public static void calculateTrajectory(Ball ball) {
@@ -121,9 +126,9 @@ public abstract class Physics {
     public static void resetPhysics(){
         ball.resetPos();
         ghostBall.resetPos();
-        ghostBall2.resetPos();
-        platform1.resetPos();
-        platform2.resetPos();
+        player1.getPlatform().resetPos();
+        player2.getPlatform().resetPos();
+        game.getGameScreen().setHitPlatformLast(null);
     }
 
 }

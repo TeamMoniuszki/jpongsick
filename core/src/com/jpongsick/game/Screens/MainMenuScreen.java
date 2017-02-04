@@ -33,7 +33,7 @@ public class MainMenuScreen implements Screen {
         nickInput1 = UIManager.createTextField("Player 1", UIManager.skin, (float)(0.1875 * Config.width), (float)(Config.height/20), Config.width/3f, Config.height/3f, Align.center, 15);
         nickInput2 = UIManager.createTextField("Player 2", UIManager.skin, (float)(0.1875 * Config.width), (float)(Config.height/20), 2*Config.width/3f, Config.height/3f, Align.center, 15);
         aiCheckbox = UIManager.createCheckBox("BOT", UIManager.skin, Config.halfWidth, Config.height/5f, Align.center);
-        difficultySelection = UIManager.createSelectBox(UIManager.skin, "Difficulty", Config.width/8, Config.height/20, 3, Config.halfWidth, Config.halfHeight/4, Align.center, AI.Difficulty.values(), true, false);
+        difficultySelection = UIManager.createSelectBox(UIManager.skin, "Difficulty", Config.width/8, Config.height/20, 3, Config.halfWidth, Config.halfHeight/4, Align.center, AI.difficulties, true, false);
 
 
         game.addActor(buttonStart);
@@ -67,6 +67,14 @@ public class MainMenuScreen implements Screen {
         this.aiCheckbox = aiCheckbox;
     }
 
+    public SelectBox getDifficultySelection() {
+        return difficultySelection;
+    }
+
+    public void setDifficultySelection(SelectBox difficultySelection) {
+        this.difficultySelection = difficultySelection;
+    }
+
     public void draw() {
         game.getBatch().begin();
         game.getBatch().draw(UIManager.logo, Config.halfWidth - UIManager.logo.getWidth()/2, 5*Config.height/6 - UIManager.logo.getHeight()/2);
@@ -97,7 +105,8 @@ public class MainMenuScreen implements Screen {
 
         if (buttonStart.isPressed()) {
             Logic.isAIGame = aiCheckbox.isChecked();
-            AI.setDifficulty((AI.Difficulty)difficultySelection.getSelected());
+            game.getGameScreen().getPlayer1().setAiType(AI.Difficulty.PLAYER);
+            game.getGameScreen().getPlayer2().setAiType(AI.Difficulty.PLAYER);
 
             Logic.handle(Logic.Event.NEW_GAME);
         }
@@ -114,7 +123,6 @@ public class MainMenuScreen implements Screen {
         nickInput1.setVisible(true);
         nickInput2.setVisible(true);
         aiCheckbox.setVisible(true);
-        AI.difficulty = AI.Difficulty.SHOWOFF;
         difficultySelection.setVisible(aiCheckbox.isChecked());
     }
 
