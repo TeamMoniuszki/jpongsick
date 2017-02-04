@@ -6,8 +6,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.jpongsick.game.Entities.Player;
 import com.jpongsick.game.Entities.PlayerManager;
 import com.jpongsick.game.Logic.Event;
-import com.jpongsick.game.Screens.DevConsoleScreen;
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap;
 
 
 public abstract class Input {
@@ -28,6 +26,9 @@ public abstract class Input {
                 if (Gdx.input.isKeyPressed(Keys.ENTER)) {
                     Logic.isAIGame = game.getMainMenuScreen().getAiCheckbox().isChecked();
                     Logic.handle(Logic.Event.NEW_GAME);
+                }
+                if(Gdx.input.isKeyPressed(Keys.F7)){
+                    Logic.handle(Event.ENTERED_DEV_CONSOLE);
                 }
                 PlayerManager.updateMovement();
 
