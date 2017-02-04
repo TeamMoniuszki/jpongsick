@@ -23,6 +23,8 @@ public abstract class Logic {
         RIGHT_PLAYER_SCORED,
         GAME_RESUMED,
         EXITED_TO_MAIN_MENU,
+        ENTERED_DEV_CONSOLE,
+        EXITED_DEV_CONSOLE
     }
 
     public static void initialize(JPongSick g) {
@@ -63,11 +65,25 @@ public abstract class Logic {
 
             case GAME_RESUMED: {
                 resumeGame();
+                game.setScreen(game.getGameScreen());
+                game.getDevConsoleScreen().hide();
                 break;
             }
             case EXITED_TO_MAIN_MENU: {
                 exitToMenu();
                 break;
+            }
+            case ENTERED_DEV_CONSOLE: {
+                game.getDevConsoleScreen().setLastScreen(game.getScreen());
+                game.setState(State.DEV_CONSOLE);
+                game.getDevConsoleScreen().show();
+                game.setScreen(game.getDevConsoleScreen());
+                break;
+            }
+            case EXITED_DEV_CONSOLE: {
+                game.setState(State.PLAYING);
+                game.getDevConsoleScreen().hide();
+                game.setScreen(game.getDevConsoleScreen().getLastScreen());
             }
         }
     }
@@ -125,6 +141,7 @@ public abstract class Logic {
     }
 
     private static void exitToMenu() {
+        Physics.resetPhysics();
         game.getGameScreen().getPlayer1().setAiType(HARD);
         game.getGameScreen().getPlayer2().setAiType(HARD);
         Announcer.hideLabel();

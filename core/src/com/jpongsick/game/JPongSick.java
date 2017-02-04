@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.jpongsick.game.Entities.AI;
 import com.jpongsick.game.Entities.PlayerManager;
+import com.jpongsick.game.Screens.DevConsoleScreen;
 import com.jpongsick.game.Screens.GameScreen;
 import com.jpongsick.game.Util.Announcer;
 import com.jpongsick.game.Util.UIManager;
@@ -18,6 +19,7 @@ public class JPongSick extends Game {
 	private Stage stage;
 	private MainMenuScreen mainMenuScreen;
 	private GameScreen gameScreen;
+	private DevConsoleScreen devConsoleScreen;
 	private State state;
 
 
@@ -45,6 +47,14 @@ public class JPongSick extends Game {
 		return this.stage;
 	}
 
+	public DevConsoleScreen getDevConsoleScreen() {
+		return devConsoleScreen;
+	}
+
+	public void setDevConsoleScreen(DevConsoleScreen devConsoleScreen) {
+		this.devConsoleScreen = devConsoleScreen;
+	}
+
 	@Override
 	public void create () {
 		//Order is important
@@ -60,6 +70,7 @@ public class JPongSick extends Game {
 		this.state = State.MENU;
 		this.mainMenuScreen = new MainMenuScreen(this, true);
 		this.gameScreen = new GameScreen(this, false);
+		this.devConsoleScreen = new DevConsoleScreen(this, false);
 
 		Gdx.input.setInputProcessor(stage);
 		this.setScreen(mainMenuScreen);

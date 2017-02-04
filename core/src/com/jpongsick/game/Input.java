@@ -6,6 +6,8 @@ import com.badlogic.gdx.Input.Keys;
 import com.jpongsick.game.Entities.Player;
 import com.jpongsick.game.Entities.PlayerManager;
 import com.jpongsick.game.Logic.Event;
+import com.jpongsick.game.Screens.DevConsoleScreen;
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap;
 
 
 public abstract class Input {
@@ -34,7 +36,9 @@ public abstract class Input {
 
             case PLAYING: {
                 PlayerManager.updateMovement();
-
+                if(Gdx.input.isKeyPressed(Keys.F7)){
+                    Logic.handle(Event.ENTERED_DEV_CONSOLE);
+                }
                 if (Gdx.input.isKeyPressed(Keys.ESCAPE) || (Gdx.input.isKeyPressed(Keys.BACK) && Config.applicationType == Application.ApplicationType.Android)) {
                     Logic.handle(Event.EXITED_TO_MAIN_MENU);
                 }
@@ -63,6 +67,15 @@ public abstract class Input {
                     Logic.handle(Event.EXITED_TO_MAIN_MENU);
                 }
                 break;
+            }
+
+            case DEV_CONSOLE: {
+                if(Gdx.input.isKeyJustPressed(Keys.F8)){
+                    Logic.handle(Event.EXITED_DEV_CONSOLE);
+                }
+                if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+                    game.getDevConsoleScreen().executeCommand();
+                }
             }
         }
     }

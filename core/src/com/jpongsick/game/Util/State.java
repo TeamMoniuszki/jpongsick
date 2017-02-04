@@ -5,5 +5,6 @@ public enum State {
     PLAYING,
     PAUSE,
     ROUND_OVER,
-    GAME_OVER
+    GAME_OVER,
+    DEV_CONSOLE
 }

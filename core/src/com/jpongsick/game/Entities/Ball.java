@@ -68,4 +68,17 @@ public class Ball extends Circle {
         this.randomizeAngle();
     }
 
+    public void setSpeed(float x, float y) {
+        this.speed.set(x, y);
+        this.speed.setLength(len);
+    }
+
+    public static void resetLen(){
+        len = (int)(Config.width * 1.2f);
+    }
+
+    public void resetSpeed(){
+        this.speed.setLength(len);
+        this.randomizeAngle();
+    }
 }

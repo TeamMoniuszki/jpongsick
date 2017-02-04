@@ -42,4 +42,8 @@ public class Platform extends Rectangle{
         setCenter(this.getCenterX(), Config.halfHeight);
     }
 
+    public static void resetSpeed(){
+        speed = (int)Config.halfWidth;
+    }
+
 }
