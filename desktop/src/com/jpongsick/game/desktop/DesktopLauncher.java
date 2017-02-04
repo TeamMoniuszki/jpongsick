@@ -17,6 +17,7 @@ public class DesktopLauncher {
 		config.addIcon("32x32.png", Files.FileType.Internal);
 		config.addIcon("16x16.png", Files.FileType.Internal);
 
+//        config.fullscreen = true;
 		config.width = 800;
 		config.height = 600;
 		new LwjglApplication(new JPongSick(), config);

@@ -9,7 +9,6 @@ import com.jpongsick.game.Util.State;
 
 import static com.jpongsick.game.Entities.AI.Difficulty.HARD;
 import static com.jpongsick.game.Entities.AI.Difficulty.PLAYER;
-import static com.jpongsick.game.Entities.AI.Difficulty.SHOWOFF;
 
 public abstract class Logic {
     private static boolean isInitialized = false;
@@ -23,8 +22,8 @@ public abstract class Logic {
         RIGHT_PLAYER_SCORED,
         GAME_RESUMED,
         EXITED_TO_MAIN_MENU,
-        ENTERED_DEV_CONSOLE,
-        EXITED_DEV_CONSOLE
+        OPENED_DEV_CONSOLE,
+        CLOSED_DEV_CONSOLE
     }
 
     public static void initialize(JPongSick g) {
@@ -73,15 +72,18 @@ public abstract class Logic {
                 exitToMenu();
                 break;
             }
-            case ENTERED_DEV_CONSOLE: {
+            case OPENED_DEV_CONSOLE: {
                 game.getDevConsoleScreen().setLastScreen(game.getScreen());
+                game.getDevConsoleScreen().setLastState(game.getState());
+                game.getDevConsoleScreen().getInput().setText("");
                 game.setState(State.DEV_CONSOLE);
                 game.getDevConsoleScreen().show();
                 game.setScreen(game.getDevConsoleScreen());
                 break;
             }
-            case EXITED_DEV_CONSOLE: {
-                game.setState(State.PLAYING);
+            case CLOSED_DEV_CONSOLE: {
+                Announcer.hideLabel();
+                game.setState(game.getDevConsoleScreen().getLastState());
                 game.getDevConsoleScreen().hide();
                 game.setScreen(game.getDevConsoleScreen().getLastScreen());
             }

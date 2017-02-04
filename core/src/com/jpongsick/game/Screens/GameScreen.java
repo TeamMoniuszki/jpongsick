@@ -30,13 +30,13 @@ public class GameScreen implements Screen {
 
         camera.setToOrtho(false, Config.width, Config.height);
         camera.update();
-        this.ball = new Ball(0, 0, 15);
-        this.ball.setCenter(Config.halfWidth, Config.halfHeight);
 
-        this.player1 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Player1", AI.Difficulty.HARD);
-        this.player2 = PlayerManager.createPlayer(new Platform(0, 0, 10, 100), new Score(), "Player2", AI.Difficulty.HARD);
+        this.player1 = PlayerManager.createPlayer(new Platform(0, 0, Config.width/80 , Config.height/6), new Score(), "Player1", AI.Difficulty.HARD);
+        this.player2 = PlayerManager.createPlayer(new Platform(0, 0, Config.width/80, Config.height/6), new Score(), "Player2", AI.Difficulty.HARD);
         this.player1.getPlatform().setCenter(25, Config.halfHeight);
         this.player2.getPlatform().setCenter(Config.width - 25, Config.halfHeight);
+        this.ball = new Ball(0, 0, 3*player1.getPlatform().getHeight()/20);
+        this.ball.setCenter(Config.halfWidth, Config.halfHeight);
 
         this.player1.getLabel().setPosition(Config.width / 4f, 7 * Config.height / 8f, Align.center);
         this.player2.getLabel().setPosition(0.75f * Config.width , 7 * Config.height / 8f, Align.center);

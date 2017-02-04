@@ -2,7 +2,6 @@ package com.jpongsick.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
@@ -23,6 +22,7 @@ public class DevConsoleScreen implements Screen {
     boolean isVisible;
     private OrthographicCamera camera;
     private Screen lastScreen;
+    private State lastState;
     private float accumulator;
 
 
@@ -45,27 +45,46 @@ public class DevConsoleScreen implements Screen {
         this.lastScreen = lastScreen;
     }
 
+    public State getLastState() {
+        return lastState;
+    }
+
+    public void setLastState(State lastState) {
+        this.lastState = lastState;
+    }
+
+    public TextField getInput() {
+        return input;
+    }
+
+    public void setInput(TextField input) {
+        this.input = input;
+    }
+
     public void executeCommand(){
         String[] split = input.getText().split(" ");
-
         if(split[0].equals("setBallSpeed")){
             game.getGameScreen().getBall().setSpeed(Float.parseFloat(split[1]), Float.parseFloat(split[2]));
             accumulator = 0;
             Announcer.setText("Command executed");
             Announcer.showLabel();
+            input.setText("");
         }
         else if(split[0].equals("setBallLen")){
             Ball.len = Integer.parseInt(split[1]);
+            input.setText("");
         }
 
         else if(split[0].equals("setPlatformSpeed")){
             Platform.speed = Integer.parseInt(split[1]);
+            input.setText("");
         }
 
         else if(split[0].equals("resetVariables")){
             Platform.resetSpeed();
             Ball.resetLen();
             game.getGameScreen().getBall().resetSpeed();
+            input.setText("");
         }
 
 
@@ -73,6 +92,7 @@ public class DevConsoleScreen implements Screen {
 
     @Override
     public void show() {
+        this.input.setDisabled(false);
         this.input.setVisible(true);
     }
 
@@ -101,6 +121,7 @@ public class DevConsoleScreen implements Screen {
 
     @Override
     public void hide() {
+        this.input.setDisabled(true);
         this.input.setVisible(false);
     }
 

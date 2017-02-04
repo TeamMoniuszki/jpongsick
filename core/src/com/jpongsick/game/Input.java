@@ -27,8 +27,8 @@ public abstract class Input {
                     Logic.isAIGame = game.getMainMenuScreen().getAiCheckbox().isChecked();
                     Logic.handle(Logic.Event.NEW_GAME);
                 }
-                if(Gdx.input.isKeyPressed(Keys.F7)){
-                    Logic.handle(Event.ENTERED_DEV_CONSOLE);
+                if(Gdx.input.isKeyJustPressed(Keys.GRAVE)){
+                    Logic.handle(Event.OPENED_DEV_CONSOLE);
                 }
                 PlayerManager.updateMovement();
 
@@ -37,8 +37,8 @@ public abstract class Input {
 
             case PLAYING: {
                 PlayerManager.updateMovement();
-                if(Gdx.input.isKeyPressed(Keys.F7)){
-                    Logic.handle(Event.ENTERED_DEV_CONSOLE);
+                if(Gdx.input.isKeyJustPressed(Keys.GRAVE)){
+                    Logic.handle(Event.OPENED_DEV_CONSOLE);
                 }
                 if (Gdx.input.isKeyPressed(Keys.ESCAPE) || (Gdx.input.isKeyPressed(Keys.BACK) && Config.applicationType == Application.ApplicationType.Android)) {
                     Logic.handle(Event.EXITED_TO_MAIN_MENU);
@@ -54,6 +54,9 @@ public abstract class Input {
             }
 
             case ROUND_OVER: {
+                if(Gdx.input.isKeyJustPressed(Keys.GRAVE)){
+                    Logic.handle(Event.OPENED_DEV_CONSOLE);
+                }
                 if (Gdx.input.isKeyPressed(Keys.SPACE) || (Gdx.input.isTouched() && Config.applicationType == Application.ApplicationType.Android)) {
                     Logic.handle(Event.GAME_RESUMED);
                 }
@@ -71,8 +74,8 @@ public abstract class Input {
             }
 
             case DEV_CONSOLE: {
-                if(Gdx.input.isKeyJustPressed(Keys.F8)){
-                    Logic.handle(Event.EXITED_DEV_CONSOLE);
+                if(Gdx.input.isKeyJustPressed(Keys.GRAVE)){
+                    Logic.handle(Event.CLOSED_DEV_CONSOLE);
                 }
                 if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
                     game.getDevConsoleScreen().executeCommand();
