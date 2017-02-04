@@ -3,8 +3,6 @@ package com.jpongsick.game;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.math.Vector3;
-import com.jpongsick.game.Entities.AI;
 import com.jpongsick.game.Entities.Player;
 import com.jpongsick.game.Entities.PlayerManager;
 import com.jpongsick.game.Logic.Event;
@@ -23,99 +21,46 @@ public abstract class Input {
 
     public static void update() {
         if (!isInitialized) return;
+        switch (game.getState()) {
+            case MENU: {
+                if (Gdx.input.isKeyPressed(Keys.ENTER)) {
+                    Logic.isAIGame = game.getMainMenuScreen().getAiCheckbox().isChecked();
+                    Logic.handle(Logic.Event.NEW_GAME);
+                }
+                PlayerManager.updateMovement();
 
+                break;
+            }
 
-        switch (Config.applicationType) {
-            case Desktop:
+            case PLAYING: {
+                PlayerManager.updateMovement();
 
-                switch (game.getState()) {
-                    case MENU: {
-                        if (Gdx.input.isKeyPressed(Keys.ENTER)) {
-                            Logic.isAIGame = game.getMainMenuScreen().getAiCheckbox().isChecked();
-                            Logic.handle(Logic.Event.NEW_GAME);
-                        }
-                        PlayerManager.updateMovement();
-
-                        break;
-                    }
-
-                    case PLAYING: {
-                        PlayerManager.updateMovement();
-
-                        if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-                            Logic.handle(Event.EXITED_TO_MAIN_MENU);
-                        }
-                        break;
-                    }
-
-                    case PAUSE: {
-                        if (Gdx.input.isKeyPressed(Keys.SPACE)) {
-                            Logic.handle(Event.GAME_RESUMED);
-                        }
-                        break;
-                    }
-
-                    case ROUND_OVER: {
-                        if (Gdx.input.isKeyPressed(Keys.SPACE)) {
-                            Logic.handle(Event.GAME_RESUMED);
-                        }
-                        if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-                            Logic.handle(Event.EXITED_TO_MAIN_MENU);
-                        }
-                        break;
-                    }
-
-                    case GAME_OVER: {
-                        if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-                            Logic.handle(Event.EXITED_TO_MAIN_MENU);
-                        }
-                        break;
-                    }
+                if (Gdx.input.isKeyPressed(Keys.ESCAPE) || (Gdx.input.isKeyPressed(Keys.BACK) && Config.applicationType == Application.ApplicationType.Android)) {
+                    Logic.handle(Event.EXITED_TO_MAIN_MENU);
                 }
                 break;
+            }
 
-            //TODO: Make this work properly on android - Vector3 and translating coordinates using camera,
-            //TODO: Change the way to start a round (not touch)
+            case PAUSE: {
+                if (Gdx.input.isKeyPressed(Keys.SPACE) || (Gdx.input.isTouched() && Config.applicationType == Application.ApplicationType.Android)) {
+                    Logic.handle(Event.GAME_RESUMED);
+                }
+                break;
+            }
 
-            case Android: {
-                switch (game.getState()) {
-                    case MENU: {
-                        PlayerManager.updateMovement();
-                        break;
-                    }
+            case ROUND_OVER: {
+                if (Gdx.input.isKeyPressed(Keys.SPACE) || (Gdx.input.isTouched() && Config.applicationType == Application.ApplicationType.Android)) {
+                    Logic.handle(Event.GAME_RESUMED);
+                }
+                if (Gdx.input.isKeyPressed(Keys.ESCAPE) || (Gdx.input.isKeyPressed(Keys.BACK) && Config.applicationType == Application.ApplicationType.Android)) {
+                    Logic.handle(Event.EXITED_TO_MAIN_MENU);
+                }
+                break;
+            }
 
-                    case PLAYING: {
-                        PlayerManager.updateMovement();
-
-                        if (Gdx.input.isKeyPressed(Keys.BACK)) {
-                            Logic.handle(Event.EXITED_TO_MAIN_MENU);
-                        }
-                        break;
-                    }
-
-                    case PAUSE: {
-                        if (Gdx.input.isTouched()) {
-                            Logic.handle(Event.GAME_RESUMED);
-                        }
-                        break;
-                    }
-
-                    case ROUND_OVER: {
-                        if (Gdx.input.isTouched()) {
-                            Logic.handle(Event.GAME_RESUMED);
-                        }
-                        if (Gdx.input.isKeyPressed(Keys.BACK)) {
-                            Logic.handle(Event.EXITED_TO_MAIN_MENU);
-                        }
-                        break;
-                    }
-
-                    case GAME_OVER: {
-                        if (Gdx.input.isKeyPressed(Keys.BACK)) {
-                            Logic.handle(Event.EXITED_TO_MAIN_MENU);
-                        }
-                        break;
-                    }
+            case GAME_OVER: {
+                if (Gdx.input.isKeyPressed(Keys.ESCAPE) || (Gdx.input.isKeyPressed(Keys.BACK) && Config.applicationType == Application.ApplicationType.Android)) {
+                    Logic.handle(Event.EXITED_TO_MAIN_MENU);
                 }
                 break;
             }
