@@ -78,7 +78,7 @@ public abstract class Physics {
 
 
             //TODO: HOW TO MAKE IT WORK IF THERE ARE SO MANY POSSIBILITIES
-//            while(platform.overlaps(ball)){ // theoretically but not exactly kurwa jego mać
+//            while(platform.overlaps(ball)){
 //                integrate2(ball);
 //            }
 

@@ -141,12 +141,12 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void pause() { // nie wolno uzywac (jak narazie)
+    public void pause() { // shouldn't be used
 
     }
 
     @Override
-    public void resume() { // nie wolno uzywac (jak narazie)
+    public void resume() { // shouldn't be used
 
     }
 
