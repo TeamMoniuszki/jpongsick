@@ -26,6 +26,7 @@ The improvements over the first version are:
 - player names,
 - an attempt at implementing a developer console (lol),
 - possibility to compile for Android and Desktop.
+
 It still definitely contains multiple bugs and code flaws/smells. As with the first one, it is **definitely discontinued**. Feel free to use it in any way you want though.
 
 
