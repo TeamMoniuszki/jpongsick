@@ -46,7 +46,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Szymon Woźniak - swozniak6@gmail.com
+Szymon Woźniak - swozniak6@gmail.com<br/>
 Kacper Leśniara - kacper.lesniara@gmail.com
 
 Project Link: [https://github.com/simonusher/jpongsick](https://github.com/simonusher/jpongsick)
